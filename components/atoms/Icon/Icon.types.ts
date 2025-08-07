@@ -30,8 +30,6 @@ interface IconProps extends SVGProps<SVGSVGElement> {
   name: IconName;
   /** 아이콘 크기 (px 단위, 기본값 설정 가능) */
   size?: number;
-  /** 사용자 정의 CSS 클래스 이름 */
-  className?: string;
 }
 
 export type { IconName, SvgComponent, IconProps };

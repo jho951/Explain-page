@@ -20,7 +20,7 @@ import { IconProps, getIconComponent, SvgComponent } from '@/components/atoms/Ic
  * <Icon name="arrow" size={32} className="text-primary" />
  * <Icon name="check" />
  */
-function Icon({ name, size = 24, className, ...props }: IconProps) {
+function Icon({ name, size = 24, ...props }: IconProps) {
   /**
    * SVG 아이콘 컴포넌트 동적 선택
    * @type {React.ComponentType<React.SVGProps<SVGSVGElement>> | null}
@@ -29,16 +29,7 @@ function Icon({ name, size = 24, className, ...props }: IconProps) {
 
   if (!SvgIcon) return null;
 
-  return (
-    <SvgIcon
-      className={className}
-      width={size}
-      height={size}
-      aria-hidden="true"
-      focusable="false"
-      {...props}
-    />
-  );
+  return <SvgIcon width={size} height={size} aria-hidden="true" focusable="false" {...props} />;
 }
 
 export { Icon };

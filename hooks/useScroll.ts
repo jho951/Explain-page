@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function useScrollY() {
   const [scrollY, setScrollY] = useState(0);
@@ -31,18 +31,18 @@ function useScrollThresholdReached(threshold: number) {
  * 스크롤 잠금 훅
  * @param lock - true일 때 document.body의 스크롤을 막습니다.
  */
+
 function useScrollLock(lock: boolean) {
-  useLayoutEffect(() => {
+  useEffect(() => {
+    const originalStyle = document.body.style.overflow;
     if (lock) {
-      const originalStyle = window.getComputedStyle(document.body).overflow;
       document.body.style.overflow = 'hidden';
-      return () => {
-        document.body.style.overflow = originalStyle;
-      };
     }
+    return () => {
+      document.body.style.overflow = originalStyle;
+    };
   }, [lock]);
 }
-
 function useScrollSyncIndex(
   containerRef: React.RefObject<HTMLElement | null>,
   setIndex: (index: number) => void,

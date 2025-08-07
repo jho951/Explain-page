@@ -3,6 +3,8 @@ import { BaseCardBody, BaseCardFooter, BaseCardHeader } from '@/components/atoms
 
 type SectionProps = React.PropsWithChildren<{ className?: string }>;
 
+type CardSectionType = 'Header' | 'Body' | 'Footer';
+
 /** 공통 카드 베이스 */
 type BaseCardProps = React.HTMLAttributes<HTMLElement> & {
   /** 사용자 정의 클래스명 */
@@ -22,4 +24,4 @@ type BaseCardComponent = React.ForwardRefExoticComponent<
 /** 폼 전용 카드 */
 type FormCardProps = BaseCardProps;
 
-export type { SectionProps, BaseCardProps, BaseCardComponent, FormCardProps };
+export type { CardSectionType, SectionProps, BaseCardProps, BaseCardComponent, FormCardProps };

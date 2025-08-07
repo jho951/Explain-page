@@ -1,7 +1,7 @@
-import styles from '@/styles/header/PcNav.module.css';
 import { Link } from '@/components/atoms/Link';
 import { PcGnbProps } from '@/components/molecules/Gnb';
 import { NOT_AUTH_LINK } from '@/data/navigation';
+import styles from '@/components/molecules/Gnb/PcGnb.module.css';
 
 function PcGnb({ gnb, pathname, focusToggle }: PcGnbProps) {
   return (

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import styles from '@/components/atoms/button/base/styles.module.css';
+import styles from '@/components/atoms/BaseButton/BaseButton.module.css';
 
 /**
  * variant와 size에 따라 버튼에 적용할 클래스를 반환합니다.

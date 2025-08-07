@@ -3,7 +3,7 @@
   --base-max-width: 120rem;
   --base-padding: 5%;
   --base-border: rgba(var(--color-black-rgb), 0.05);
-  --base-radius: 3rem;
+  --base-radius: 2.4rem;
   --base-blur: 4px;
   --base-font: 'Pretendard', sans-serif;
   --base-z-index: 1000;
@@ -21,7 +21,7 @@
 
   --header-max-width: 100rem;
   --header-height: 2rem;
-  --header-padding: 0.4rem var(--base-padding) 0.8rem var(--base-padding);
+  --header-padding: 0.5rem 1rem 0.5rem 2rem;
   --header-offset: 7rem;
   --header-background: linear-gradient(
     to bottom,
