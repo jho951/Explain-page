@@ -4,7 +4,14 @@ import matter from 'gray-matter';
 import { serialize } from 'next-mdx-remote/serialize';
 
 export async function getMarkdownContent(slug: string, locale: string) {
+  if (!slug || !locale) {
+    throw new Error(
+      `[getMarkdownContent] Invalid slug or locale: slug="${slug}", locale="${locale}"`,
+    );
+  }
+
   const filepath = path.join(process.cwd(), 'content', locale, `${slug}.mdx`);
+  console.log('[getMarkdownContent] filepath:', filepath);
 
   if (!fs.existsSync(filepath)) return null;
 
