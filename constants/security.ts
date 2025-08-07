@@ -3,8 +3,24 @@ const TITLE = process.env.NEXT_PUBLIC_TITLE!;
 const DESCRIPTION = process.env.NEXT_PUBLIC_DESCRIPTION!;
 const COPY = process.env.NEXT_PUBLIC_COPY!;
 const PROJECT_URL = process.env.NEXT_PUBLIC_SITE || 'http://localhost:3000';
+const CAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!;
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const KAKAO_SECRET_KEY = process.env.KAKAO_CLIENT_ID;
+const GOOGLE_CLIENT_KEY = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_SECRET_KEY = process.env.GOOGLE_CLIENT_SECRET;
 
 // ✅ Node 환경
 const NODE_ENV = process.env.NODE_ENV;
 
-export { TITLE, DESCRIPTION, COPY, PROJECT_URL, NODE_ENV };
+export {
+  TITLE,
+  DESCRIPTION,
+  COPY,
+  PROJECT_URL,
+  NODE_ENV,
+  CAPTCHA_SITE_KEY,
+  OPENAI_API_KEY,
+  KAKAO_SECRET_KEY,
+  GOOGLE_CLIENT_KEY,
+  GOOGLE_SECRET_KEY,
+};

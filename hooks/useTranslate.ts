@@ -1,6 +1,7 @@
 import { useContext } from 'react';
-import { TranslationsContext } from '@/context';
-import { Messages } from '@/types';
+
+import { Locale, LocaleMessages } from '@/types/locale';
+import { TranslationsContext } from '@/contexts/TranslationContext';
 
 /**
  * @function useTranslation
@@ -11,7 +12,7 @@ import { Messages } from '@/types';
  * @throws {Error} - TranslationsProvider 외부에서 사용할 경우 에러가 발생합니다.
  *
  * @returns {{
- *   messages: Messages;
+ *   messages: LocaleMessages;
  *   lang: string;
  * }}
  *
@@ -26,8 +27,8 @@ import { Messages } from '@/types';
  * ```
  */
 function useTranslation(): {
-  messages: Messages;
-  lang: string;
+  messages: LocaleMessages;
+  lang: Locale;
 } {
   const context = useContext(TranslationsContext);
   if (!context) {

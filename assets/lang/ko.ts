@@ -1,6 +1,6 @@
-import { Messages } from '@/types';
+import { LocaleMessages } from '@/types/locale';
 
-export const ko: Messages = {
+export const ko: LocaleMessages = {
   header: {
     home: '홈',
     blog: '블로그',
@@ -51,7 +51,6 @@ export const ko: Messages = {
     esg: 'ESG',
     responsible: '취약점 제보',
 
-    // Auth
     myPage: '마이페이지',
     logOut: '로그아웃',
     signIn: '로그인',

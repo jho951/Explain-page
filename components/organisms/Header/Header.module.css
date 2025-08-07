@@ -1,0 +1,28 @@
+.headerContainer {
+  width: var(--base-width);
+  max-width: var(--header-max-width);
+
+  position: fixed;
+  top: var(--header-height);
+  left: 50%;
+  transform: translateX(-50%);
+
+  background: var(--header-background);
+  border-radius: var(--base-radius);
+
+  box-shadow: var(--base-shadow);
+
+  margin-inline: auto;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  z-index: calc(var(--base-z-index) + 100);
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--header-padding);
+}

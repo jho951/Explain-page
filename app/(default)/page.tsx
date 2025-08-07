@@ -1,5 +1,7 @@
-import HomePage from '@/features/home/HomePage';
+import HomeTemplate from '@/components/templates/home/HomeTemplate';
 
-export default function Page() {
-  return <HomePage />;
+function HomePage() {
+  return <HomeTemplate />;
 }
+
+export default HomePage;

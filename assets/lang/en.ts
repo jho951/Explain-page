@@ -1,6 +1,6 @@
-import { Messages } from '@/types';
+import { LocaleMessages } from '@/types/locale';
 
-export const en: Messages = {
+export const en: LocaleMessages = {
   header: {
     home: 'Home',
     blog: 'Blog',

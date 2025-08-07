@@ -1,8 +1,8 @@
-type Theme = 'light' | 'dark';
+import { SUPPORTED_THEMES } from '@/constants/theme';
 
-interface ThemeContextProps {
-  theme: Theme;
-  toggleTheme: () => void;
-}
+/**
+ * Theme 종류
+ */
+type Theme = (typeof SUPPORTED_THEMES)[number];
 
-export type { Theme, ThemeContextProps };
+export type { Theme };

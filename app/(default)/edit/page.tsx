@@ -1,5 +1,7 @@
-import EditPage from '@/features/edit/EditPage';
+import EditTemplate from '@/components/templates/edit/EditTemplate';
 
-export default function Edit() {
-  return <EditPage />;
+function EditPage() {
+  return <EditTemplate />;
 }
+
+export default EditPage;

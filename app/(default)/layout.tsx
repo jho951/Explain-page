@@ -1,17 +1,20 @@
-import DefaultLayout from '@/features/layout/DefaultLayout';
-import RssScript from '@/components/scripts/RssScript';
+import RssScript from '@/components/organisms/scripts/RssScript';
+import DefaultLayout from '@/components/templates/layout/DefaultLayout';
+import CaptchaScript from '@/components/organisms/scripts/CaptchaScript';
+import { LayoutProps } from '@/types/layout';
 
-import type { LayoutProps } from '@/types';
-
-export default function Layout({ children, modal, params }: LayoutProps) {
-  const { lang } = params;
+async function Layout({ children, modal, params }: LayoutProps) {
+  const { lang } = await params;
 
   return (
     <>
       <RssScript lang={lang} />
+      <CaptchaScript />
       <DefaultLayout modal={modal} params={{ lang }}>
         {children}
       </DefaultLayout>
     </>
   );
 }
+
+export default Layout;

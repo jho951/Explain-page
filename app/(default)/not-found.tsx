@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
+import NotFoundPage from '@/components/templates/not-found/not-found';
 
-import NotFoundPage from '@/features/not-found/not-found';
-import { notFoundMetadata } from '@/libs/seo/meta-data';
+import { notFoundMetadata } from '@/constants/meta';
 
 export default function NotFound() {
   return <NotFoundPage />;
