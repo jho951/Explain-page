@@ -1,0 +1,31 @@
+.imageContainer {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+
+.skeleton {
+  background-color: var(--color-bg);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.image {
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.image.loaded {
+  opacity: 1;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}

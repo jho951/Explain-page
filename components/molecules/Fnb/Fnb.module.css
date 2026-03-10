@@ -1,0 +1,27 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin-bottom: 2rem;
+  gap: 3rem;
+}
+
+.fnbTitle {
+  font-size: 1.6rem;
+  color: rgba(var(--color-text-rgb), 0.7);
+  font-weight: 600;
+  margin: 1rem 0;
+}
+
+.fnbEle {
+  color: rgba(var(--color-text-rgb), 0.6);
+  font-weight: 300;
+
+  margin: 0.5rem 0;
+  padding: 0 !important;
+
+  transition: color 0.2s ease;
+}
+
+.fnbEle:hover {
+  color: rgba(var(--color-primary-rgb), 0.8);
+}

@@ -58,9 +58,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "libs/**/*",
-    "types/svg.d.ts",
-
-    ".vscode/not-found.tsx"
+    ".vscode/not-found.tsx",
+    "components/*"
   ],
 
   // 제외할 디렉터리

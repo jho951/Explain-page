@@ -3,6 +3,9 @@
 /**
  * Google AdSense 광고 설정 객체 타입
  */
+/**
+ * AdsbygoogleConfig type 설명을 여기에 작성하세요.
+ */
 type AdsbygoogleConfig = {
   google_ad_client: string;
   google_ad_slot?: string;
@@ -21,10 +24,16 @@ type AdsbygoogleConfig = {
 /**
  * Window.adsbygoogle 전역 배열 타입
  */
+/**
+ * AdsByGoogle type 설명을 여기에 작성하세요.
+ */
 type AdsByGoogle = AdsbygoogleConfig[];
 
 /**
  * 광고 삽입용 slot props
+ */
+/**
+ * AdsenseSlotOptions type 설명을 여기에 작성하세요.
  */
 type AdsenseSlotOptions = {
   slotId?: string;
@@ -37,6 +46,9 @@ type AdsenseSlotOptions = {
 
 /**
  * 광고 배너 컴포넌트 Props
+ */
+/**
+ * AdBannerProps interface 설명을 여기에 작성하세요.
  */
 interface AdBannerProps {
   slotId?: string;

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <rect width="240" height="240" rx="48" fill="#FEE500"/>
+  <path d="M120 55c-37.3 0-67.5 23.9-67.5 53.5 0 17.7 11.4 33.3 29 43.1-1.5 5.4-5.3 19.3-6.1 22.5-.9 3.5 1.3 3.4 2.8 2.5 1.2-.7 18.5-12.2 26-17.1 5.2.8 10.6 1.3 16.1 1.3 37.3 0 67.5-23.9 67.5-53.5S157.3 55 120 55z" fill="#000"/>
+  <text x="120" y="145" text-anchor="middle" font-size="32" font-weight="bold" fill="#000" font-family="Arial, sans-serif">kakao</text>
+</svg>

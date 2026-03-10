@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function useScrollY() {
   const [scrollY, setScrollY] = useState(0);
@@ -31,16 +31,45 @@ function useScrollThresholdReached(threshold: number) {
  * 스크롤 잠금 훅
  * @param lock - true일 때 document.body의 스크롤을 막습니다.
  */
+
 function useScrollLock(lock: boolean) {
-  useLayoutEffect(() => {
+  useEffect(() => {
+    const originalStyle = document.body.style.overflow;
     if (lock) {
-      const originalStyle = window.getComputedStyle(document.body).overflow;
       document.body.style.overflow = 'hidden';
-      return () => {
-        document.body.style.overflow = originalStyle;
-      };
     }
+    return () => {
+      document.body.style.overflow = originalStyle;
+    };
   }, [lock]);
+}
+function useScrollSyncIndex(
+  containerRef: React.RefObject<HTMLElement | null>,
+  setIndex: (index: number) => void,
+  debounceMs = 100, // ⏱️ 기본값 100ms
+) {
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    let timeoutId: number | undefined;
+
+    const handleScroll = () => {
+      if (timeoutId) clearTimeout(timeoutId);
+
+      timeoutId = window.setTimeout(() => {
+        if (!container) return;
+        const newIndex = Math.round(container.scrollLeft / container.offsetWidth);
+        setIndex(newIndex);
+      }, debounceMs);
+    };
+
+    container.addEventListener('scroll', handleScroll);
+    return () => {
+      container.removeEventListener('scroll', handleScroll);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [containerRef, setIndex, debounceMs]);
 }
 
 function useScrollDetect(delay = 100): boolean {
@@ -68,4 +97,10 @@ function useScrollDetect(delay = 100): boolean {
   return isScrolling;
 }
 
-export { useScrollY, useScrollThresholdReached, useScrollLock, useScrollDetect };
+export {
+  useScrollY,
+  useScrollThresholdReached,
+  useScrollLock,
+  useScrollDetect,
+  useScrollSyncIndex,
+};

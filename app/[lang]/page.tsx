@@ -1,7 +1,7 @@
-import { SUPPORTED_LOCALES } from '@/constants';
-import HomePage from '@/features/home/HomePage';
+import HomePage from '@/components/templates/home/HomeTemplate';
+import { SUPPORTED_LOCALES } from '@/constants/locale';
+import { PageProps } from '@/types/layout';
 
-import type { PageProps } from '@/types';
 import { notFound } from 'next/navigation';
 
 export default async function Page({ params }: PageProps) {
@@ -9,5 +9,5 @@ export default async function Page({ params }: PageProps) {
   if (!SUPPORTED_LOCALES.includes(lang)) {
     notFound();
   }
-  return <HomePage lang={lang} />;
+  return <HomePage />;
 }

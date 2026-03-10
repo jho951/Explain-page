@@ -1,6 +1,7 @@
-import HomePage from '@/features/home/HomePage';
-import { DEFAULT_LOCALE } from '@/constants';
+import HomeTemplate from '@/components/templates/home/HomeTemplate';
 
-export default function Page() {
-  return <HomePage lang={DEFAULT_LOCALE} />;
+function HomePage() {
+  return <HomeTemplate />;
 }
+
+export default HomePage;

@@ -1,5 +1,6 @@
+import { ThemeContextProps } from '@/contexts/theme';
+import { Theme } from '@/types/theme';
 import { useEffect, useState } from 'react';
-import type { Theme } from '@/types';
 
 /**
  * 다크 모드 상태를 관리하는 사용자 정의 훅입니다.
@@ -13,17 +14,14 @@ import type { Theme } from '@/types';
  * @example
  * const { theme, toggleTheme } = useDarkMode();
  */
-function useDarkMode(): {
-  theme: Theme;
-  toggleTheme: () => void;
-} {
+
+function useDarkMode(): ThemeContextProps {
   const [theme, setTheme] = useState<Theme>('light');
 
   // 초기 테마 설정: localStorage > prefers-color-scheme
   useEffect(() => {
     const saved = localStorage.getItem('theme') as Theme | null;
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
     const initialTheme: Theme = saved ?? (prefersDark ? 'dark' : 'light');
     setTheme(initialTheme);
   }, []);

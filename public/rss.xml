@@ -2,10 +2,10 @@
     <channel>
         <title><![CDATA[Untitled RSS Feed]]></title>
         <description><![CDATA[Untitled RSS Feed]]></description>
-        <link>http://github.com/dylang/node-rss</link>
+        <link>http://localhost:3000</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Thu, 24 Jul 2025 16:52:21 GMT</lastBuildDate>
-        <atom:link href="undefined/rss.xml" rel="self" type="application/rss+xml"/>
+        <lastBuildDate>Thu, 07 Aug 2025 13:00:51 GMT</lastBuildDate>
+        <atom:link href="http://localhost:3000/rss.xml" rel="self" type="application/rss+xml"/>
         <language><![CDATA[ko]]></language>
     </channel>
 </rss>

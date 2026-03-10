@@ -76,3 +76,6 @@ pnpm-debug.log*
 *.log                  # 기타 로그 파일
 *.swp                  # vim 임시 파일
 *.tmp                  # 임시 파일
+
+*storybook.log
+storybook-static

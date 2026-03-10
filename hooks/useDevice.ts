@@ -1,6 +1,5 @@
+import { MOBILE_BREAKPOINT } from '@/constants/media';
 import { useEffect, useState } from 'react';
-
-import { MOBILE_BREAKPOINT } from '@/constants';
 
 /** 마우스 hover 지원 여부 (정적 함수) */
 function isHoverSupported(): boolean {
