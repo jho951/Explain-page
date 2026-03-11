@@ -19,8 +19,7 @@
     "prepare": "husky install",
     "dev": "next dev",
     "start": "next start",
-    "build": "npm run _generate:rss && next build",
-    "_generate:rss": "cross-env NODE_OPTIONS=--loader=ts-node/esm ts-node --project tsconfig.json --require tsconfig-paths/register libs/rss-generate.ts",
+    "build": "next build",
     "_lint": "eslint .",
     "_typecheck": "tsc --noEmit -p tsconfig.json",
     "_format": "prettier . --write",
@@ -43,8 +42,7 @@
     "react-dom": "^19.0.0",
     "react-redux": "^9.2.0",
     "remark": "^15.0.1",
-    "remark-html": "^16.0.1",
-    "rss": "^1.2.2"
+    "remark-html": "^16.0.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
@@ -56,7 +54,6 @@
     "@types/node": "^20",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
-    "@types/rss": "^0.0.32",
     "@types/webpack": "^5.28.5",
     "@typescript-eslint/eslint-plugin": "^8.37.0",
     "@typescript-eslint/parser": "^8.37.0",

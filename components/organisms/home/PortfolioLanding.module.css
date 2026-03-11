@@ -1,0 +1,688 @@
+.page {
+  display: grid;
+  gap: 0;
+  padding: 0 0 72px;
+  background: #f4efe6;
+  color: #24180f;
+}
+
+.hero,
+.highlightStrip,
+.showcase,
+.storySection,
+.writingSection,
+.awardsSection,
+.quoteSection,
+.footerPromo {
+  position: relative;
+  width: min(100%, 1220px);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 28px 16px;
+  z-index: 0;
+}
+
+.hero::before,
+.highlightStrip::before,
+.showcase::before,
+.storySection::before,
+.writingSection::before,
+.awardsSection::before,
+.quoteSection::before,
+.footerPromo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  z-index: -1;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: rgba(71, 53, 37, 0.56);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+}
+
+.hero {
+  display: grid;
+  gap: 20px;
+  align-items: center;
+}
+
+.hero::before {
+  background:
+    radial-gradient(circle at top left, rgba(250, 231, 203, 0.82), transparent 28%),
+    radial-gradient(circle at right 12%, rgba(204, 223, 231, 0.62), transparent 26%),
+    linear-gradient(180deg, #f8f3ea 0%, #f4efe5 48%, #f2f6f8 100%);
+}
+
+.heroTitle,
+.sectionIntro h2,
+.storyCopy h2,
+.footerPromoCopy h2,
+.quoteCard p {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  letter-spacing: -0.04em;
+}
+
+.heroTitle {
+  font-size: clamp(44px, 8vw, 86px);
+  line-height: 0.96;
+  color: #23170e;
+}
+
+.heroDesc,
+.sectionIntro p,
+.storyCopy p,
+.footerPromoCopy p,
+.writingCard p,
+.projectText,
+.timelineItem span,
+.subscribePanel li {
+  margin: 0;
+  color: rgba(66, 49, 35, 0.72);
+  line-height: 1.72;
+}
+
+.heroDesc {
+  max-width: 560px;
+  font-size: 16px;
+  margin-top: 16px;
+}
+
+.heroActions,
+.capabilityRail,
+.projectTags,
+.contactRail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.heroActions {
+  margin-top: 20px;
+}
+
+.primaryAction,
+.secondaryAction,
+.cardAction,
+.contactPill,
+.subscribeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.primaryAction,
+.subscribeButton {
+  border: 0;
+  background: #1b1815;
+  color: #fffdf9;
+  box-shadow: 0 16px 30px rgba(29, 22, 16, 0.16);
+}
+
+.secondaryAction,
+.cardAction,
+.contactPill {
+  border: 1px solid rgba(98, 77, 58, 0.14);
+  background: rgba(255, 252, 246, 0.8);
+  color: #2b1e13;
+  box-shadow: 0 10px 24px rgba(80, 58, 34, 0.06);
+}
+
+.primaryAction:hover,
+.secondaryAction:hover,
+.cardAction:hover,
+.contactPill:hover,
+.subscribeButton:hover {
+  transform: translateY(-2px);
+}
+
+.capabilityRail {
+  margin-top: 18px;
+}
+
+.capabilityRail span {
+  padding: 9px 12px;
+  border-radius: 999px;
+  background: rgba(255, 250, 242, 0.66);
+  border: 1px solid rgba(109, 87, 66, 0.1);
+  color: rgba(58, 43, 31, 0.8);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.heroVisual {
+  position: relative;
+}
+
+.appFrame {
+  border-radius: 30px;
+  padding: 16px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(247, 240, 228, 0.82)), #fff;
+  border: 1px solid rgba(114, 87, 61, 0.12);
+  box-shadow:
+    0 24px 50px rgba(83, 58, 31, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.74);
+}
+
+.windowBar,
+.subscribeWindow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.windowBar {
+  margin-bottom: 14px;
+}
+
+.windowBar span,
+.subscribeWindow span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(66, 49, 35, 0.16);
+}
+
+.windowBar p {
+  margin: 0 0 0 6px;
+  color: rgba(71, 53, 37, 0.52);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.windowBody {
+  display: grid;
+  gap: 14px;
+}
+
+.editorCard {
+  padding: 24px;
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at top right, rgba(198, 231, 227, 0.64), transparent 34%),
+    linear-gradient(180deg, #fdfcf9 0%, #f5eee1 100%);
+  min-height: 220px;
+}
+
+.cardLabel,
+.projectBadge,
+.writingCard span {
+  width: fit-content;
+  margin: 0 0 10px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.cardLabel,
+.writingCard span {
+  background: rgba(37, 30, 22, 0.06);
+  color: rgba(58, 43, 31, 0.62);
+}
+
+.editorCard h2 {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 54px);
+  line-height: 0.96;
+  letter-spacing: -0.05em;
+  color: #1f1610;
+}
+
+.editorCard p:last-child {
+  margin-top: 16px;
+  max-width: 34ch;
+}
+
+.stackedNotes {
+  display: grid;
+  gap: 12px;
+}
+
+.noteCard {
+  padding: 18px 20px;
+  border-radius: 22px;
+  background: rgba(255, 252, 246, 0.82);
+  border: 1px solid rgba(117, 92, 67, 0.12);
+  box-shadow: 0 12px 24px rgba(85, 60, 35, 0.06);
+}
+
+.noteCard strong,
+.projectCard h3,
+.writingCard h3,
+.timelineItem h3,
+.subscribePanel h3 {
+  display: block;
+  margin: 0;
+  color: #23170f;
+  letter-spacing: -0.03em;
+}
+
+.noteCard span {
+  display: block;
+  margin-top: 6px;
+  color: rgba(66, 49, 35, 0.64);
+}
+
+.highlightStrip {
+  display: grid;
+  gap: 14px;
+}
+
+.highlightStrip::before {
+  background: linear-gradient(180deg, #f3eadc 0%, #f8f4ec 100%);
+}
+
+.highlightCard,
+.storyCard,
+.quoteCard,
+.footerPromoCard {
+  border-radius: 30px;
+  background: rgba(255, 251, 244, 0.78);
+  border: 1px solid rgba(115, 89, 64, 0.12);
+  box-shadow: 0 18px 36px rgba(88, 62, 35, 0.06);
+}
+
+.highlightCard {
+  padding: 22px;
+}
+
+.highlightCard h3 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+}
+
+.showcase,
+.writingSection,
+.awardsSection {
+  display: grid;
+  gap: 18px;
+}
+
+.showcase::before {
+  background: linear-gradient(180deg, #eef4f2 0%, #f6fbf8 100%);
+}
+
+.storySection::before {
+  background: linear-gradient(180deg, #f7efe6 0%, #fbf7f1 100%);
+}
+
+.writingSection::before {
+  background: linear-gradient(180deg, #f3f0fb 0%, #faf8fd 100%);
+}
+
+.awardsSection::before {
+  background: linear-gradient(180deg, #f5efe4 0%, #fcf9f4 100%);
+}
+
+.quoteSection::before {
+  background: linear-gradient(180deg, #ece3d7 0%, #f4ede5 100%);
+}
+
+.footerPromo::before {
+  background: linear-gradient(180deg, #eaf1f5 0%, #f5f9fb 100%);
+}
+
+.sectionIntro {
+  max-width: 620px;
+}
+
+.sectionIntro h2,
+.storyCopy h2,
+.footerPromoCopy h2 {
+  font-size: clamp(34px, 5vw, 62px);
+  line-height: 0.98;
+  color: #23170f;
+}
+
+.sectionIntro p,
+.storyCopy p,
+.footerPromoCopy p {
+  margin-top: 12px;
+}
+
+.projectGrid,
+.writingGrid {
+  display: grid;
+  gap: 14px;
+}
+
+.projectCard,
+.writingCard {
+  position: relative;
+  overflow: hidden;
+  padding: 24px;
+  border-radius: 28px;
+  min-height: 260px;
+}
+
+.projectCard::after {
+  content: '';
+  position: absolute;
+  right: -30px;
+  bottom: -50px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.32);
+}
+
+.mint {
+  background: linear-gradient(180deg, #d9ece7 0%, #edf6f1 100%);
+}
+
+.sand {
+  background: linear-gradient(180deg, #f2e5d0 0%, #f7efe3 100%);
+}
+
+.ink {
+  background: linear-gradient(180deg, #2b2520 0%, #3a3128 100%);
+}
+
+.ink,
+.ink .projectBadge,
+.ink .projectText,
+.ink .projectTags span,
+.ink .cardAction,
+.ink h3 {
+  color: #fffaf4;
+}
+
+.ink .projectBadge {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.ink .projectText {
+  color: rgba(255, 250, 244, 0.72);
+}
+
+.ink .projectTags span,
+.ink .cardAction {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.projectBadge {
+  background: rgba(40, 32, 24, 0.08);
+  color: rgba(58, 43, 31, 0.66);
+}
+
+.projectCard h3 {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(30px, 4vw, 52px);
+  line-height: 0.96;
+}
+
+.projectText {
+  position: relative;
+  z-index: 1;
+  max-width: 34ch;
+  margin-top: 10px;
+}
+
+.projectTags {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.projectTags span {
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(98, 77, 58, 0.12);
+  background: rgba(255, 255, 255, 0.5);
+  color: rgba(58, 43, 31, 0.74);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.cardAction {
+  position: relative;
+  z-index: 1;
+  width: fit-content;
+  margin-top: 18px;
+}
+
+.storyCard,
+.footerPromoCard {
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+}
+
+.metricPanel {
+  display: grid;
+  gap: 12px;
+}
+
+.metricCard {
+  padding: 20px;
+  border-radius: 24px;
+  background: rgba(252, 248, 241, 0.92);
+  border: 1px solid rgba(113, 88, 63, 0.12);
+}
+
+.metricCard strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: clamp(34px, 5vw, 54px);
+  line-height: 0.9;
+  color: #1f1510;
+}
+
+.metricCard span {
+  color: rgba(66, 49, 35, 0.64);
+  font-size: 14px;
+}
+
+.writingCard {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(246, 238, 226, 0.82)), #fff;
+  border: 1px solid rgba(111, 85, 59, 0.12);
+}
+
+.writingCard h3 {
+  margin-top: 6px;
+  font-size: 28px;
+  line-height: 1.02;
+}
+
+.writingCard p {
+  margin-top: 12px;
+}
+
+.timeline {
+  display: grid;
+  gap: 18px;
+  padding-left: 10px;
+}
+
+.timelineItem {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.timelineDot {
+  width: 14px;
+  height: 14px;
+  margin-top: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d8a35f, #9f7140);
+  box-shadow: 0 0 0 8px rgba(215, 184, 144, 0.18);
+}
+
+.timelineItem p {
+  margin: 0 0 4px;
+  color: rgba(71, 53, 37, 0.52);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.timelineItem h3 {
+  font-size: 24px;
+}
+
+.quoteCard {
+  padding: 28px 24px;
+  text-align: center;
+}
+
+.quoteCard p {
+  font-size: clamp(28px, 4vw, 52px);
+  line-height: 1.1;
+  color: #2a1d13;
+}
+
+.quoteCard footer {
+  margin-top: 18px;
+  color: rgba(71, 53, 37, 0.56);
+  font-size: 14px;
+}
+
+.subscribePanel {
+  padding: 22px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, #e5eef4 0%, #d8e5ee 100%);
+  border: 1px solid rgba(94, 121, 139, 0.12);
+}
+
+.subscribePanel h3 {
+  margin-top: 12px;
+  font-size: 28px;
+  line-height: 1.04;
+}
+
+.subscribePanel ul {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0 0;
+  padding-left: 18px;
+}
+
+.subscribePanel li {
+  list-style: disc;
+}
+
+.subscribeButton {
+  margin-top: 20px;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding-bottom: 84px;
+  }
+
+  .hero {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 24px;
+  }
+
+  .highlightStrip,
+  .writingGrid,
+  .timeline {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .projectGrid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .projectCard:first-child {
+    grid-column: 1 / span 7;
+    min-height: 360px;
+  }
+
+  .projectCard:nth-child(2),
+  .projectCard:nth-child(3) {
+    grid-column: 8 / -1;
+    min-height: 173px;
+  }
+
+  .storyCard,
+  .footerPromoCard {
+    grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+    align-items: start;
+  }
+
+  .hero,
+  .highlightStrip,
+  .showcase,
+  .storySection,
+  .writingSection,
+  .awardsSection,
+  .quoteSection,
+  .footerPromo {
+    padding: 40px 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page {
+    padding-bottom: 96px;
+  }
+
+  .appFrame,
+  .highlightCard,
+  .projectCard,
+  .storyCard,
+  .quoteCard,
+  .footerPromoCard,
+  .writingCard,
+  .subscribePanel {
+    border-radius: 34px;
+  }
+
+  .hero {
+    gap: 32px;
+  }
+
+  .hero,
+  .highlightStrip,
+  .showcase,
+  .storySection,
+  .writingSection,
+  .awardsSection,
+  .quoteSection,
+  .footerPromo {
+    padding: 56px 32px;
+  }
+
+  .windowBody {
+    grid-template-columns: minmax(0, 1.15fr) minmax(250px, 0.85fr);
+  }
+
+  .editorCard {
+    min-height: 420px;
+    padding: 30px;
+  }
+
+  .stackedNotes {
+    align-content: end;
+  }
+}

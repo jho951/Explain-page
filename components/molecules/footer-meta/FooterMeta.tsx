@@ -4,7 +4,6 @@ import { useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 
 import styles from '@/components/molecules/footer-meta/FooterMeta.module.css';
-import { FooterProps } from '@/components/organisms/footer';
 import { Locale } from '@/types/locale';
 import { LANGUAGE_OPTIONS } from '@/constants/locale';
 import { COPY } from '@/constants/security';
@@ -12,6 +11,7 @@ import { COPY } from '@/constants/security';
 import { Link } from '@/components/atoms/link';
 import { SNS_LINK } from '@/constants/navigation.ts';
 import { Dropdown, Icon, Spinner } from '@jho951/ui-components';
+import { FooterProps } from '@/components/organisms/Footer';
 
 const ICON_BASE_PATH = '/icons';
 

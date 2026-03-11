@@ -1,9 +1,10 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
+import clsx from 'clsx';
 
-import { Header } from '@/components/organisms/header';
-import { Footer } from '@/components/organisms/footer';
+import { Header } from '@/components/organisms/Header';
+import { Footer } from '@/components/organisms/Footer';
 import { FOOTER_EXCLUDED_PATHS, HEADER_EXCLUDED_PATHS } from '@/constants/navigation.ts';
 import { ClientLayoutProviderProps } from '@/contexts/client/ClientContext.types.ts';
 import styles from '@/contexts/client/ClientContext.module.css';
@@ -41,7 +42,13 @@ function ClientProvider({ children, modal }: ClientLayoutProviderProps) {
   return (
     <>
       {!hideHeader && <Header pathname={pathname} />}
-      <div className={hideHeader ? undefined : styles.contentWithHeader}>{children}</div>
+      <div
+        className={clsx(styles.content, {
+          [styles.withHeaderOffset]: !hideHeader,
+        })}
+      >
+        {children}
+      </div>
       {modal}
       {!hideFooter && <Footer pathname={pathname} />}
     </>

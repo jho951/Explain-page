@@ -16,7 +16,6 @@ export function middleware(req: NextRequest) {
   const segments = pathname.split('/').filter(Boolean);
   const firstSegment = segments[0];
 
-  // ✅ 정적 파일 및 API 무시
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||

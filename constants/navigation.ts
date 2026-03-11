@@ -142,12 +142,6 @@ const COMPANY: NavigationTreeLink = {
  */
 const SNS_LINK: NavigationSocialLink[] = [
   {
-    id: 'rss',
-    href: '/rss.xml',
-    icon: 'rss',
-    external: true,
-  },
-  {
     id: 'Git',
     href: 'https://github.com/jho951',
     icon: 'git',

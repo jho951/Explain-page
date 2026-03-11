@@ -9,7 +9,6 @@ export async function getMarkdownContent(slug: string, lang: string) {
   }
 
   const filepath = path.join(process.cwd(), 'content', lang, `${slug}.mdx`);
-  console.log('[getMarkdownContent] filepath:', filepath);
 
   if (!fs.existsSync(filepath)) return null;
 

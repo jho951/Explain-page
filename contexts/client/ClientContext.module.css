@@ -1,3 +1,7 @@
-.contentWithHeader {
-  padding-top: 92px;
+.content {
+  width: 100%;
+}
+
+.withHeaderOffset {
+  padding-top: var(--header-offset);
 }

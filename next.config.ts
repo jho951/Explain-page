@@ -15,7 +15,6 @@ const nextConfig: NextConfig = {
   webpack(config: Configuration) {
     const rules = config.module?.rules ?? [];
 
-    // 1. 기존 svg 로더에서 제외
     const fileLoaderRule = rules.find(
       (rule): rule is RuleSetRule =>
         typeof rule === 'object' &&
@@ -28,14 +27,12 @@ const nextConfig: NextConfig = {
       fileLoaderRule.exclude = /\.svg$/i;
     }
 
-    // 2. svgr 로더 추가
     rules.push({
       test: /\.svg$/i,
       issuer: /\.[jt]sx?$/,
       use: ['@svgr/webpack'],
     });
 
-    // ✅ 3. Webpack alias 추가
     config.resolve = config.resolve || {};
     config.resolve.alias = {
       ...(config.resolve.alias || {}),

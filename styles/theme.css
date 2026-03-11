@@ -1,4 +1,8 @@
 :root {
+  --header-h: 50px;
+  --header-top: 14px;
+  --header-offset: calc(var(--header-h) + (var(--header-top) * 2));
+
   --color-bg: #f8fafd;
   --color-bg-rgb: 248, 250, 253;
 

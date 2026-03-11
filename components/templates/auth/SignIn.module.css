@@ -1,34 +1,122 @@
 .main {
   min-height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+.layout {
+  width: 100%;
 }
 
-.dividerText {
-  text-align: center;
-  font-size: 1.2rem;
+.contentShell {
+  width: min(100%, 560px);
+  margin: 0 auto;
 }
 
-.socialButtons {
-  display: flex;
-  flex-direction: column;
-
-  gap: 0.5rem;
+.authCard {
+  padding: 28px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(250, 244, 234, 0.88)), #fff;
+  border: 1px solid rgba(113, 88, 63, 0.12);
+  box-shadow: 0 24px 50px rgba(78, 56, 31, 0.08);
 }
 
-.oauth {
+.authEyebrow {
+  margin: 0 0 10px;
+  color: rgba(63, 48, 35, 0.56);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
 }
 
+.authHead h2 {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(28px, 4vw, 52px);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  color: #23170f;
+}
+
+.authHead p,
 .disclaimer {
-  color: var(--colot-gray);
-
-  font-size: 1.1rem;
-  text-align: center;
-  margin-top: 1.5rem;
+  margin: 14px 0 0;
+  color: rgba(66, 49, 35, 0.72);
+  line-height: 1.72;
 }
 
-.link {
-  color: var(--color-primary);
-  font-size: 1.2rem;
+.form {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.githubButton {
+  min-height: 54px;
+  border-radius: 18px;
+  font-weight: 800;
+  box-shadow: 0 16px 28px rgba(49, 80, 120, 0.18);
+}
+
+.githubButton:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.divider {
+  position: relative;
+  margin: 18px 0;
+  text-align: center;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(113, 88, 63, 0.14);
+}
+
+.divider span {
+  position: relative;
+  display: inline-block;
+  padding: 0 12px;
+  background: rgba(250, 244, 234, 0.96);
+  color: rgba(63, 48, 35, 0.52);
+  font-size: 13px;
+}
+
+.metaBlock {
+  display: grid;
+  gap: 10px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: rgba(245, 239, 229, 0.72);
+  border: 1px solid rgba(113, 88, 63, 0.1);
+}
+
+.metaTitle,
+.metaText {
+  margin: 0;
+}
+
+.metaTitle {
+  color: #23170f;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.metaText {
+  color: rgba(66, 49, 35, 0.68);
+  line-height: 1.7;
+}
+
+.errorMessage {
+  margin: 14px 0 0;
+  color: #c44b4b;
+  font-size: 14px;
+  line-height: 1.6;
 }
