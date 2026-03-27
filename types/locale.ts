@@ -1,11 +1,7 @@
-/**
- * 지원되는 언어 코드
- */
+/** 지원되는 언어 코드 */
 type Locale = 'en' | 'ko';
 
-/**
- * 다국어 메시지 구조 정의
- */
+/** 다국어 메시지 구조 */
 interface LocaleMessages {
   header: {
     home: string;

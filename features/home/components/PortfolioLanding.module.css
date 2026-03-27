@@ -1,0 +1,491 @@
+.page {
+  color: #1d140d;
+  background:
+    radial-gradient(circle at top left, rgba(255, 244, 225, 0.9), transparent 28%),
+    radial-gradient(circle at right 12%, rgba(220, 234, 231, 0.9), transparent 24%),
+    linear-gradient(180deg, #f8f2e8 0%, #f3eee5 38%, #eef2ef 100%);
+}
+
+.hero,
+.valueSection,
+.flowSection,
+.featureSection,
+.architectureSection,
+.footerSection {
+  width: min(100%, 1240px);
+  margin: 0 auto;
+  padding: 28px 16px;
+}
+
+.hero {
+  display: grid;
+  gap: 24px;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.eyebrow,
+.valueEyebrow,
+.cardLabel,
+.panelLabel,
+.featureCard span {
+  margin: 0;
+  width: fit-content;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: rgba(48, 34, 23, 0.06);
+  color: rgba(63, 46, 31, 0.64);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.heroTitle,
+.sectionIntro h2,
+.documentCard h2,
+.architectureCopy h2,
+.footerCard h2 {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  letter-spacing: -0.05em;
+  color: #1e1510;
+}
+
+.heroTitle {
+  margin-top: 16px;
+  font-size: clamp(48px, 9vw, 96px);
+  line-height: 0.94;
+}
+
+.heroDesc,
+.sectionIntro p,
+.valueCard p,
+.flowCard span,
+.featureCard p,
+.documentCard p,
+.miniCard p,
+.architectureCopy p,
+.noteList li,
+.footerDesc {
+  margin: 0;
+  color: rgba(57, 41, 28, 0.74);
+  line-height: 1.72;
+}
+
+.heroDesc {
+  max-width: 60ch;
+  margin-top: 18px;
+  font-size: 16px;
+}
+
+.heroActions,
+.signalRail,
+.footerActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.heroActions {
+  margin-top: 24px;
+}
+
+.primaryAction,
+.secondaryAction,
+.footerAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.primaryAction {
+  background: #17120f;
+  color: #fffaf3;
+  box-shadow: 0 18px 30px rgba(32, 24, 18, 0.15);
+}
+
+.secondaryAction,
+.footerAction {
+  border: 1px solid rgba(95, 74, 54, 0.12);
+  background: rgba(255, 251, 245, 0.8);
+  color: #261a12;
+  box-shadow: 0 12px 24px rgba(87, 64, 42, 0.06);
+}
+
+.primaryAction:hover,
+.secondaryAction:hover,
+.footerAction:hover {
+  transform: translateY(-2px);
+}
+
+.signalRail {
+  margin-top: 18px;
+}
+
+.signalRail span {
+  padding: 9px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(101, 79, 57, 0.1);
+  background: rgba(255, 252, 247, 0.76);
+  color: rgba(60, 44, 30, 0.8);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.heroVisual {
+  position: relative;
+}
+
+.desktopFrame,
+.valueCard,
+.flowCard,
+.featureCard,
+.architectureCard,
+.footerCard {
+  border: 1px solid rgba(106, 81, 57, 0.12);
+  box-shadow:
+    0 24px 60px rgba(79, 57, 35, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.desktopFrame {
+  padding: 16px;
+  border-radius: 34px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(250, 244, 236, 0.92));
+}
+
+.windowBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.windowBar span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(61, 45, 30, 0.18);
+}
+
+.windowBar p {
+  margin: 0 0 0 4px;
+  color: rgba(71, 53, 37, 0.52);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.workspaceShell {
+  display: grid;
+  gap: 14px;
+}
+
+.sidePanel,
+.documentCard,
+.miniCard {
+  border-radius: 28px;
+  background: rgba(255, 251, 245, 0.82);
+}
+
+.sidePanel {
+  padding: 20px;
+  border: 1px solid rgba(112, 87, 63, 0.1);
+}
+
+.sidePanel strong,
+.miniCard strong,
+.valueCard h3,
+.flowCard h3,
+.featureCard h3 {
+  display: block;
+  margin: 0;
+  color: #1f1510;
+  letter-spacing: -0.04em;
+}
+
+.sidePanel strong {
+  margin-top: 14px;
+  font-size: 24px;
+  line-height: 1.02;
+}
+
+.sideList {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sideList li {
+  padding: 12px 14px;
+  border-radius: 18px;
+  background: rgba(246, 238, 228, 0.9);
+  color: rgba(57, 41, 28, 0.74);
+  font-size: 14px;
+}
+
+.editorSurface {
+  display: grid;
+  gap: 14px;
+}
+
+.documentCard {
+  padding: 24px;
+  min-height: 240px;
+  background:
+    radial-gradient(circle at top right, rgba(209, 235, 227, 0.9), transparent 30%),
+    linear-gradient(180deg, #fffcf7 0%, #f3eadf 100%);
+}
+
+.documentCard h2 {
+  margin-top: 18px;
+  font-size: clamp(30px, 5vw, 60px);
+  line-height: 0.95;
+}
+
+.documentCard p:last-child {
+  margin-top: 16px;
+  max-width: 34ch;
+}
+
+.miniGrid {
+  display: grid;
+  gap: 12px;
+}
+
+.miniCard {
+  padding: 18px;
+  border: 1px solid rgba(107, 83, 59, 0.08);
+}
+
+.miniCard span {
+  display: block;
+  margin-bottom: 10px;
+  color: rgba(71, 53, 37, 0.5);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.miniCard strong {
+  font-size: 24px;
+}
+
+.miniCard p {
+  margin-top: 8px;
+}
+
+.sectionIntro {
+  max-width: 700px;
+}
+
+.sectionIntro h2,
+.architectureCopy h2,
+.footerCard h2 {
+  margin-top: 14px;
+  font-size: clamp(34px, 6vw, 64px);
+  line-height: 0.98;
+}
+
+.sectionIntro p,
+.architectureCopy p,
+.footerDesc {
+  margin-top: 14px;
+}
+
+.valueSection,
+.flowSection,
+.featureSection,
+.architectureSection,
+.footerSection {
+  display: grid;
+  gap: 20px;
+}
+
+.valueGrid,
+.flowGrid,
+.featureGrid {
+  display: grid;
+  gap: 14px;
+}
+
+.valueCard,
+.flowCard,
+.featureCard,
+.architectureCard,
+.footerCard {
+  border-radius: 30px;
+  background: rgba(255, 251, 245, 0.78);
+}
+
+.valueCard,
+.flowCard,
+.featureCard {
+  padding: 22px;
+}
+
+.valueCard h3,
+.flowCard h3,
+.featureCard h3 {
+  margin-top: 18px;
+  font-size: 28px;
+  line-height: 1.04;
+}
+
+.valueCard p:last-child,
+.featureCard p {
+  margin-top: 12px;
+}
+
+.flowCard {
+  background: linear-gradient(180deg, rgba(255, 252, 247, 0.88), rgba(243, 236, 227, 0.88));
+}
+
+.flowCard p {
+  margin: 0;
+  color: rgba(93, 68, 48, 0.58);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.flowCard span {
+  display: block;
+  margin-top: 12px;
+}
+
+.paper {
+  background: linear-gradient(180deg, #f8f0e5 0%, #fbf7f0 100%);
+}
+
+.mist {
+  background: linear-gradient(180deg, #dfece7 0%, #edf5f1 100%);
+}
+
+.ink {
+  background: linear-gradient(180deg, #27211d 0%, #3a3128 100%);
+}
+
+.ink span,
+.ink h3,
+.ink p {
+  color: #fffaf4;
+}
+
+.ink span {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.ink p {
+  color: rgba(255, 250, 244, 0.76);
+}
+
+.architectureCard,
+.footerCard {
+  display: grid;
+  gap: 20px;
+  padding: 24px;
+}
+
+.architectureCard {
+  background:
+    radial-gradient(circle at top right, rgba(220, 231, 241, 0.72), transparent 28%),
+    rgba(255, 251, 245, 0.78);
+}
+
+.noteList {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.noteList li {
+  padding: 16px 18px;
+  border-radius: 22px;
+  background: rgba(250, 246, 239, 0.9);
+  border: 1px solid rgba(105, 80, 56, 0.08);
+}
+
+.footerCard {
+  align-items: center;
+  background:
+    radial-gradient(circle at top left, rgba(240, 223, 194, 0.78), transparent 30%),
+    linear-gradient(180deg, rgba(254, 251, 246, 0.88), rgba(241, 245, 243, 0.94));
+}
+
+@media (min-width: 768px) {
+  .hero,
+  .valueSection,
+  .flowSection,
+  .featureSection,
+  .architectureSection,
+  .footerSection {
+    padding: 40px 24px;
+  }
+
+  .hero {
+    grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+    gap: 26px;
+  }
+
+  .workspaceShell,
+  .architectureCard,
+  .footerCard {
+    grid-template-columns: minmax(250px, 0.8fr) minmax(0, 1.2fr);
+  }
+
+  .miniGrid,
+  .valueGrid,
+  .featureGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .flowGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero,
+  .valueSection,
+  .flowSection,
+  .featureSection,
+  .architectureSection,
+  .footerSection {
+    padding: 56px 32px;
+  }
+
+  .hero {
+    gap: 36px;
+    padding-top: 56px;
+  }
+
+  .desktopFrame,
+  .valueCard,
+  .flowCard,
+  .featureCard,
+  .architectureCard,
+  .footerCard {
+    border-radius: 34px;
+  }
+
+  .documentCard {
+    min-height: 360px;
+    padding: 30px;
+  }
+}

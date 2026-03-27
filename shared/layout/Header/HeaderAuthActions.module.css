@@ -1,0 +1,33 @@
+.headerActions,
+.mobileActions {
+  display: flex;
+  align-items: center;
+}
+
+.loginAction,
+.startAction {
+  border-radius: var(--ele-border-radius);
+  min-height: 40px;
+  width: 100%;
+  padding: 0 2rem;
+  font-weight: 700;
+}
+
+.loginAction {
+  color: var(--color-text);
+}
+
+.startAction {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  box-shadow: var(--base-shadow);
+}
+
+.mobileActions {
+  width: 100%;
+  justify-content: stretch;
+}
+
+.mobileActions > * {
+  flex: 1 1 0;
+}

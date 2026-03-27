@@ -1,5 +1,3 @@
-import { en } from '@/assets/lang/en';
-import { ko } from '@/assets/lang/ko';
 import { Locale, LocaleMessages, LocaleOption } from '@/types/locale';
 
 const DEFAULT_LOCALE: Locale = 'ko';
@@ -8,7 +6,10 @@ const LOCALE_COOKIE = 'lang';
 
 const SUPPORTED_LOCALES: Locale[] = ['en'];
 
-const LOOKUP: Record<Locale, LocaleMessages> = { en, ko };
+const LOOKUP: Record<Locale, LocaleMessages> = {
+  en: {} as LocaleMessages,
+  ko: {} as LocaleMessages,
+};
 
 const LANGUAGE_OPTIONS: LocaleOption[] = [
   { id: 1, value: 'en', label: 'English' },

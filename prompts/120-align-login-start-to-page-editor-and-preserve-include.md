@@ -1,0 +1,5 @@
+- Request: 로그인 버튼 시작 URL을 `GET /v1/auth/sso/start?page=editor`로 고정하고, callback ticket 교환 후 보호 API 호출 흐름 유지 + `credentials: "include"` 유지 점검.
+- Core changes: `api/auth.ts`의 login URL 빌더에서 `redirect_uri` 사용을 제거하고 `page=editor` 쿼리를 추가.
+- Core changes: `SignInTemplate`에서 `getGatewayLoginUrl()` 호출 시그니처를 최신화.
+- Verification: gateway 요청 공통 유틸(`requestGatewayJson`)과 ticket 교환(`exchangeAuthTicket`)이 모두 `credentials: 'include'`를 유지함을 확인.
+- REQUIREMENTS.md: 미갱신(기존 인증 흐름 범위 내 경로/쿼리 정렬 및 프론트 버그 수정).

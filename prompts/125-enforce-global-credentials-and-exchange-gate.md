@@ -1,0 +1,6 @@
+- Date: 2026-03-28
+- Request: 프론트 전역 `credentials: "include"` 강제 유지 + `exchange` 성공 전 `/auth/me`, `/auth/refresh` 자동 호출 차단.
+- Core changes: `auth_exchange_done` 로컬 스토리지 플래그 도입, `exchangeAuthTicket()` 성공 시 true 설정, logout 시 false 정리.
+- Core changes: `requestGatewayJson()`에서 `AUTH_ME_PATH`/`AUTH_REFRESH_PATH`를 exchange 완료 전 차단(428), 401 자동 refresh도 exchange 완료 시에만 동작.
+- Core changes: `AuthBootstrap`가 exchange 미완료 상태면 `/auth/me` 호출 없이 즉시 anonymous 초기화.
+- Verification: `npm run _typecheck` 통과.

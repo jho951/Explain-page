@@ -1,0 +1,6 @@
+- Date: 2026-03-24
+- Request: 로그인 시작 흐름을 `/auth/login/github` 대신 `/auth/sso/start` 기준으로 정렬
+- Changes:
+  - Updated frontend default login start path to `/auth/sso/start`
+  - Updated requirements and ADR to state `8080/auth/github/callback -> 5173/auth/callback` flow
+  - Corrected SSO frontend implementation doc to use `/auth/sso/start` and `/auth/github/callback`

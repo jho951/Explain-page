@@ -1,0 +1,6 @@
+- Request: API base 형식을 `http://localhost:8080/v1/`로 고정하고 뒤 엔드포인트만 변경되도록 반영
+- Changes:
+  - Updated `constants/security.ts` to normalize gateway base URL with mandatory `/v1` suffix.
+  - Added fallback base URL `http://localhost:8080` so runtime gateway base resolves to `http://localhost:8080/v1` by default.
+  - Updated docs (`README.md`, `docs/REQUIREMENTS.md`) to reflect `/v1` API prefix behavior.
+- Requirements update: Included (assumption wording adjusted to document `/v1` prefix interpretation).

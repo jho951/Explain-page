@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 import { notFoundMetadata } from '@/constants/meta';
-import NotFoundPage from '@/components/templates/notFound/NotFoundPage.tsx';
+import NotFoundPage from '@/features/not-found/components/NotFoundPage.tsx';
 
 export default function NotFound() {
   return <NotFoundPage />;

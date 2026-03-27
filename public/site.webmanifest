@@ -1,6 +1,6 @@
 {
-  "name": "Skill Blog",
-  "short_name": "Blog",
+  "name": "Editor",
+  "short_name": "Editor",
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#69a8dc",

@@ -21,14 +21,11 @@ html {
 body {
   color: var(--color-text);
   font-size: 1.6rem;
-  font-family: var(--base-font, 'Pretendard', sans-serif);
+  font-family: var(--base-font);
   line-height: 1.6;
   text-rendering: optimizeSpeed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  background: transparent;
-
   transition: color 0.3s ease;
   visibility: visible;
 }

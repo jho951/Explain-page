@@ -1,4 +1,4 @@
-import LegalPage from '@/components/templates/legal/LegalPage';
+import LegalPage from '@/features/legal/components/LegalPage';
 import { PageProps } from '@/types/layout';
 
 export default async function Legal({ params }: PageProps) {

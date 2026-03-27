@@ -1,6 +1,6 @@
 import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import type { AuthUser } from '@/libs/auth-client';
+import type { AuthUser } from '@/api/user';
 
 type AuthStatus = 'idle' | 'loading' | 'authenticated' | 'anonymous';
 

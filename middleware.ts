@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import { LOCALE_COOKIE, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/constants/locale';
-import { SSO_BASE_URL } from '@/constants/security';
+import { AUTH_ME_PATH } from '@/constants/auth';
 import { buildStartFrontendSignInUrl } from '@/libs/auth-routing';
+import { buildGatewayUrl, isGatewayConfigured } from '@/libs/api-client';
 import type { Locale } from '@/types/locale';
 
 function isLocale(x: string): x is Locale {
@@ -10,12 +11,12 @@ function isLocale(x: string): x is Locale {
 }
 
 async function isAuthenticated(req: NextRequest): Promise<boolean> {
-  if (!SSO_BASE_URL) {
+  if (!isGatewayConfigured()) {
     return false;
   }
 
   try {
-    const response = await fetch(new URL('/auth/me', SSO_BASE_URL), {
+    const response = await fetch(buildGatewayUrl(AUTH_ME_PATH), {
       method: 'GET',
       headers: {
         cookie: req.headers.get('cookie') ?? '',
@@ -52,12 +53,10 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // ✅ 로그인 보호: /app 하위는 인증 필요
   if (isProtectedPath(pathname) && !(await isAuthenticated(req))) {
     return NextResponse.redirect(buildStartFrontendSignInUrl(`${pathname}${req.nextUrl.search}`));
   }
 
-  // ✅ locale 경로 리디렉션
   if (firstSegment === DEFAULT_LOCALE) {
     const restPath = segments.slice(1).join('/');
     const url = req.nextUrl.clone();
@@ -65,7 +64,6 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // ✅ 루트: 기본 locale 쿠키 설정
   if (pathname === '/') {
     const res = NextResponse.next();
     res.cookies.set(LOCALE_COOKIE, DEFAULT_LOCALE, {
@@ -76,7 +74,6 @@ export async function middleware(req: NextRequest) {
     return res;
   }
 
-  // ✅ URL이 locale이면 해당 locale 쿠키로 설정
   if (isLocale(firstSegment)) {
     const res = NextResponse.next();
     res.cookies.set(LOCALE_COOKIE, firstSegment, {
@@ -87,7 +84,6 @@ export async function middleware(req: NextRequest) {
     return res;
   }
 
-  // ✅ locale이 빠진 경우 locale 붙여주기
   const lang = req.cookies.get(LOCALE_COOKIE)?.value ?? DEFAULT_LOCALE;
 
   if (lang !== DEFAULT_LOCALE && isLocale(lang)) {

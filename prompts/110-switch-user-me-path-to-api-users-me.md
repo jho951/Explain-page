@@ -1,0 +1,6 @@
+- Date: 2026-03-24
+- Request: 사용자 정보 조회 경로를 `/users/me` 대신 `/api/users/me` 로 변경
+- Changes:
+  - Updated frontend runtime fetch path to `GET /api/users/me`
+  - Expanded gateway path allowlist to permit `/api/users/**`
+  - Updated UI copy, requirements, ADR, and implementation docs to reflect `/auth/session -> /api/users/me`

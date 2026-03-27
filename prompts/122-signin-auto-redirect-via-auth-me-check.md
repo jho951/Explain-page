@@ -1,0 +1,4 @@
+- Request: 로그인 진입 시 토큰/세션이 유효하면 즉시 서비스 페이지로 리다이렉트되도록 개선.
+- Core changes: `AuthBootstrap`에서 `/v1/auth/me`(`fetchAuthMe`)를 먼저 호출해 서버 인증 상태를 판정한 뒤, 인증 성공 시에만 `/users/me`를 조회하도록 순서를 조정.
+- Behavior: 유효한 토큰(Authorization) 또는 쿠키 세션이 있으면 초기 부트스트랩에서 `authenticated` 상태가 설정되어 `/signin`에서 자동 리다이렉트됨.
+- REQUIREMENTS.md: 미갱신(기존 인증 흐름 범위 내 판정 순서 보강).

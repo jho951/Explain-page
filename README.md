@@ -14,9 +14,12 @@ rss 피드 적용
 
 ## Auth Setup
 
-- GitHub callback is handled by ExplainPage SSO.
-- This frontend uses `ticket -> /auth/exchange -> /auth/me`.
+- Browser requests only the Gateway domain.
+- GitHub callback is handled by Gateway/Auth Service.
+- This frontend uses `ticket -> /auth/exchange -> /auth/me` and `/users/me` after Gateway login.
 - All auth requests use `credentials: "include"`.
 - Required server env vars:
-  - `NEXT_PUBLIC_SSO_BASE_URL`
+  - `NEXT_PUBLIC_GATEWAY_BASE_URL`
   - `SSO_SESSION_COOKIE_NAME`
+- Gateway base URL shape:
+  - fixed API prefix: `http://localhost:8080/v1/*` (or `{configured-gateway-base}/v1/*`)

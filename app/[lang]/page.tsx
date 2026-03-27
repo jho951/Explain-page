@@ -1,4 +1,4 @@
-import HomePage from '@/components/templates/home/HomeTemplate';
+import HomePage from '@/features/home/components/HomeTemplate';
 import { SUPPORTED_LOCALES } from '@/constants/locale';
 import { PageProps } from '@/types/layout';
 

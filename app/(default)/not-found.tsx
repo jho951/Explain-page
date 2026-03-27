@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import NotFoundPage from '@/components/templates/notFound/NotFoundPage.tsx';
+import NotFoundPage from '@/features/not-found/components/NotFoundPage.tsx';
 import { notFoundMetadata } from '@/constants/meta.ts';
 
 export default function NotFound() {

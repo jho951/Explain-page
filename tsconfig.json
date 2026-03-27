@@ -1,48 +1,31 @@
 {
   "compilerOptions": {
-    // 기본 출력 디렉터리 (generate-rss 등)
     "outDir": "dist",
-    // ESNext, Node·브라우저 양쪽에서 동작하도록
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "node",
-    // JSON import 지원
     "resolveJsonModule": true,
-    // Next.js 자체 빌드를 위해 TS는 emit
     "noEmit": true,
 
     "allowImportingTsExtensions": true,
-    // tsx/jsx 처리 방식 (Next.js 빌드 파이프라인에 맡김)
     "jsx": "preserve",
-    // 프로젝트 루트가 곧 소스 폴더
     "baseUrl": "./",
     "rootDir": ".",
     "paths": {
       "@/*": ["*"]
     },
 
-    // 타입 정의
     "typeRoots": ["./types", "./node_modules/@types"],
     "types": ["react", "react-dom", "node"],
-    // DOM + ESNext 내장 라이브러리
     "lib": ["dom", "dom.iterable", "esnext"],
-    // JS 파일 허용
     "allowJs": true,
-    // 빌드 속도
     "incremental": true,
-    // CommonJS <→ ESM 호환
     "esModuleInterop": true,
-    // 개별 파일 고립 검사
     "isolatedModules": true,
-    // 파일명 대소문자 일관성 강제
-    "forceConsistentCasingInFileNames": true, // ← 추가
-    // 외부 라이브러리 타입 검사 건너뛰기
+    "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    // 엄격 모드 전체 활성화
     "strict": true,
-    // emit 시 오류가 있으면 멈추도록
-    "noEmitOnError": true, // ← 추가
-    // Next.js 플러그인
+    "noEmitOnError": true,
     "plugins": [
       {
         "name": "next"
@@ -51,7 +34,6 @@
   },
   "appDir": true,
 
-  // 빌드 대상에 포함할 파일
   "include": [
     "next-env.d.ts",
     "**/*.ts",
@@ -62,6 +44,5 @@
     "components/*"
   ],
 
-  // 제외할 디렉터리
   "exclude": ["node_modules", ".next"]
 }
