@@ -1,4 +1,0 @@
-- Request: `exchangeAuthTicket()`가 access token 없이도 성공(쿠키 세션 기반 204 포함) 처리되도록 보장.
-- Verification: `api/auth.ts`에서 token 미존재 시 401 예외 throw 로직이 제거되어 있고, token 존재 시에만 `setStoredAccessToken`을 수행함을 확인.
-- Behavior: `POST /v1/auth/exchange`가 204로 응답해도 성공 경로로 반환되어 재로그인 루프를 유발하지 않음.
-- REQUIREMENTS.md: 미갱신(기존 인증 흐름 내 에러 처리 보정).

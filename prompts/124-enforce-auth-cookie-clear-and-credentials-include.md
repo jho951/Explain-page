@@ -1,5 +1,0 @@
-- Request: 브라우저 인증 쿠키(`refresh_token`, `sso_session`, `ACCESS_TOKEN`, `JSESSIONID`) 삭제와 인증 요청 credentials 옵션 적용 여부를 우선 반영.
-- Change: `libs/api-client.ts`에 `clearBrowserAuthCookies()` 유틸 추가.
-- Change: `api/auth.ts`의 `logoutAuthSession()` finally 블록에서 쿠키 삭제 유틸과 access token 정리를 함께 수행.
-- Verified: `exchange`는 `fetch(..., { credentials: 'include' })` 유지, `auth/me`와 `auth/refresh`는 공통 Gateway 요청 유틸에서 `credentials: 'include'` 강제 유지.
-- Note: 현재 코드베이스에는 axios 사용 구간이 없어 `withCredentials` 적용 지점은 없음.

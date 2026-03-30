@@ -1,5 +1,0 @@
-- Request: 인증 플로우 진입 포트와 API 호출 포트가 실제로 동일 origin 기준으로 고정되어 있는지 점검.
-- Verified: Gateway base URL은 `NEXT_PUBLIC_GATEWAY_BASE_URL` 또는 `NEXT_PUBLIC_SSO_BASE_URL` 기준으로 `.../v1`로 정규화되어 단일 origin으로 사용됨.
-- Verified: 로그인 시작(`/v1/auth/sso/start?page=editor`), ticket 교환(`/v1/auth/exchange`), 세션 확인(`/v1/auth/me`), 사용자 조회(`/users/me`) 모두 동일 Gateway base를 사용.
-- Verified: 브라우저 Gateway 호출은 공통 유틸에서 `credentials: 'include'`를 강제하고, ticket 교환도 동일하게 `credentials: 'include'`를 사용.
-- Note: 현재 로컬 env는 시작 프론트(`3000`)와 소비 콜백(`5173`)을 분리한 멀티 프론트 구성이다.

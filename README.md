@@ -17,9 +17,35 @@ rss 피드 적용
 - Browser requests only the Gateway domain.
 - GitHub callback is handled by Gateway/Auth Service.
 - This frontend uses `ticket -> /auth/exchange -> /auth/me` and `/users/me` after Gateway login.
-- All auth requests use `credentials: "include"`.
+- Auth is cookie-based: the frontend does not persist access tokens in `localStorage`.
+- All auth requests use `credentials: "include"` and rely on server-issued cookies.
 - Required server env vars:
   - `NEXT_PUBLIC_GATEWAY_BASE_URL`
-  - `SSO_SESSION_COOKIE_NAME`
 - Gateway base URL shape:
   - fixed API prefix: `http://localhost:8080/v1/*` (or `{configured-gateway-base}/v1/*`)
+
+## Docker
+
+1. 이미지 빌드
+
+```bash
+docker build -f docker/Dockerfile -t explain-page:local .
+```
+
+2. 컨테이너 실행 (`.env.local` 사용)
+
+```bash
+docker run --rm -p 3000:3000 --env-file .env.local --name explain-page explain-page:local
+```
+
+3. compose + 스크립트로 실행
+
+```bash
+./scripts/run.docker.sh
+```
+
+4. 로컬 dev 실행
+
+```bash
+./scripts/run.local.sh
+```

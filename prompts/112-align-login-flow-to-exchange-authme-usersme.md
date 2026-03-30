@@ -1,8 +1,0 @@
-- Request: 로그인 후 API 흐름을 `GET /v1/auth/sso/start -> callback ticket -> POST /v1/auth/exchange -> GET /v1/auth/me -> (필요 시) GET /v1/users/me` 로 정렬
-- Changes:
-  - Replaced auth constants and runtime flow from `/auth/session` to `/auth/exchange` and `/auth/me`.
-  - Updated callback client to require `ticket`, call exchange first, then auth verification and user profile fetch.
-  - Changed user endpoint from `/api/users/me` to `/users/me` and gateway allowlist from `/api/users/**` to `/users/**`.
-  - Updated middleware auth check to use `/auth/me`.
-  - Synced docs (`README.md`, `docs/REQUIREMENTS.md`, `docs/SSO_SESSION_FRONTEND_IMPLEMENTATION.md`, `docs/decisions/006-browser-calls-gateway-only.md`).
-- Requirements update: Included (login/auth verification flow and user endpoint contract changed).
