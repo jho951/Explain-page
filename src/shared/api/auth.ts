@@ -9,6 +9,7 @@ import {
 import type { RawAuthMeResponse, AuthSession } from '@/shared/api/auth.types';
 import {
   buildGatewayUrl,
+  buildCallbackUrl,
   clearBrowserAuthCookies,
   hasCompletedAuthExchange,
   GatewayRequestError,
@@ -17,8 +18,6 @@ import {
   requestGatewayJson,
   setAuthExchangeCompleted,
 } from '@/shared/lib';
-import { AUTH_CONSUMER_CALLBACK_URL } from '@/shared/config';
-
 const logAuthApi = (event: string, detail?: unknown) => {
   console.log(`[auth-api] ${event}`, detail ?? '');
 };
@@ -51,10 +50,10 @@ const parseAuthSession = (payload: RawAuthMeResponse): AuthSession => {
   };
 };
 
-const getGatewayLoginUrl = () => {
+const getGatewayLoginUrl = (nextPath?: string) => {
   const url = buildGatewayUrl(AUTH_LOGIN_PATH);
   url.searchParams.set('page', AUTH_LOGIN_PAGE);
-  url.searchParams.set('redirect_uri', AUTH_CONSUMER_CALLBACK_URL);
+  url.searchParams.set('redirect_uri', buildCallbackUrl(nextPath).toString());
 
   const resolved = url.toString();
   logAuthApi('getGatewayLoginUrl', { resolved });

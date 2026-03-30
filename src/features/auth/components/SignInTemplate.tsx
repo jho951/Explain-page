@@ -50,10 +50,17 @@ function SignInTemplate({
         };
 
   useEffect(() => {
+    if (!authConfigured) return;
+
     if (initialized && status === 'authenticated') {
       router.replace(nextPath);
+      return;
     }
-  }, [initialized, nextPath, router, status]);
+
+    if (initialized && status !== 'loading') {
+      window.location.replace(getGatewayLoginUrl(nextPath));
+    }
+  }, [authConfigured, initialized, nextPath, router, status]);
 
   const handleSsoLogin = async () => {
     if (authConfigured === false) {
@@ -65,7 +72,7 @@ function SignInTemplate({
     setErrorMessage('');
 
     try {
-      window.location.assign(getGatewayLoginUrl());
+      window.location.assign(getGatewayLoginUrl(nextPath));
     } catch {
       setIsSubmitting(false);
       setErrorMessage(text.loginFailed);

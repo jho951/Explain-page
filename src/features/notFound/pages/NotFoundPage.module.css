@@ -23,5 +23,5 @@
   display: flex;
   justify-content: center;
   overflow: hidden;
-  pointer-events: none;
+  pointer-events: auto;
 }
