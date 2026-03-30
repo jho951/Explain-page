@@ -1,0 +1,67 @@
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.copy {
+  white-space: nowrap;
+}
+
+.languageAndIcons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.selectWrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.globe {
+  position: absolute;
+  left: 1rem;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.localeSelect {
+  min-width: 13rem;
+}
+
+.localeSelect :global(select) {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: none;
+  padding-left: 2.8rem;
+  padding-right: 2.8rem;
+}
+
+.languageText {
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+.icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .bottom {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .languageAndIcons {
+    justify-content: flex-start;
+  }
+}

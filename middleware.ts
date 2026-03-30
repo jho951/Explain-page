@@ -1,43 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { LOCALE_COOKIE, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/constants/locale';
-import { AUTH_ME_PATH } from '@/constants/auth';
-import { buildStartFrontendSignInUrl } from '@/libs/auth-routing';
-import { buildGatewayUrl, isGatewayConfigured } from '@/libs/api-client';
-import type { Locale } from '@/types/locale';
+import { LOCALE_COOKIE, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/shared/config/locale';
+import type { Locale } from '@/shared/types/locale.types';
 
 function isLocale(x: string): x is Locale {
   return SUPPORTED_LOCALES.includes(x as Locale);
-}
-
-async function isAuthenticated(req: NextRequest): Promise<boolean> {
-  if (!isGatewayConfigured()) {
-    return false;
-  }
-
-  try {
-    const response = await fetch(buildGatewayUrl(AUTH_ME_PATH), {
-      method: 'GET',
-      headers: {
-        cookie: req.headers.get('cookie') ?? '',
-      },
-      cache: 'no-store',
-    });
-
-    return response.ok;
-  } catch {
-    return false;
-  }
-}
-
-function isProtectedPath(pathname: string): boolean {
-  if (pathname === '/app' || pathname.startsWith('/app/')) {
-    return true;
-  }
-
-  return SUPPORTED_LOCALES.some(
-    locale => pathname === `/${locale}/app` || pathname.startsWith(`/${locale}/app/`),
-  );
 }
 
 export async function middleware(req: NextRequest) {
@@ -49,13 +16,8 @@ export async function middleware(req: NextRequest) {
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
     /\.(png|jpe?g|svg|css|js|ico|woff2?|map)$/.test(pathname)
-  ) {
+  )
     return NextResponse.next();
-  }
-
-  if (isProtectedPath(pathname) && !(await isAuthenticated(req))) {
-    return NextResponse.redirect(buildStartFrontendSignInUrl(`${pathname}${req.nextUrl.search}`));
-  }
 
   if (firstSegment === DEFAULT_LOCALE) {
     const restPath = segments.slice(1).join('/');

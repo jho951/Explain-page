@@ -1,0 +1,17 @@
+.fnbTitle {
+  font-size: var(--font-base);
+  color: rgba(var(--color-text-rgb), 0.8);
+  font-weight: 600;
+  line-height: 3;
+}
+
+.fnbEle {
+  font-size: var(--font-s);
+  color: rgba(var(--color-text-rgb), 0.7);
+  line-height: 2;
+  transition: color 0.2s ease;
+}
+
+.fnbEle:hover {
+  color: rgba(var(--color-primary-rgb), 0.9);
+}

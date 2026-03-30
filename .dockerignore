@@ -1,0 +1,12 @@
+.git
+.github
+.idea
+.next
+node_modules
+dist
+prompts
+docs
+assets
+*.log
+npm-debug.log*
+docker-compose*.yml

@@ -1,9 +1,0 @@
-.footerContainer {
-  width: var(--base-width);
-  max-width: var(--base-max-width);
-
-  position: relative;
-  margin-inline: auto;
-  padding: 0 2%;
-  z-index: calc(var(--base-z-index) + 90);
-}

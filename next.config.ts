@@ -3,11 +3,14 @@ import type { NextConfig } from 'next';
 import type { Configuration, RuleSetRule } from 'webpack';
 
 const nextConfig: NextConfig = {
+  transpilePackages: ['@jho951/ui-components'],
+  output: 'standalone',
+
   env: {
     NEXT_PUBLIC_TITLE: process.env.NEXT_PUBLIC_TITLE,
     NEXT_PUBLIC_DESCRIPTION: process.env.NEXT_PUBLIC_DESCRIPTION,
     NEXT_PUBLIC_COPY: process.env.NEXT_PUBLIC_COPY,
-    NEXT_PUBLIC_SITE: process.env.NEXT_PUBLIC_SITE,
+    NEXT_PUBLIC_START_FRONTEND_URL: process.env.NEXT_PUBLIC_START_FRONTEND_URL,
     NEXT_PUBLIC_ADSENSE_CLIENT_ID: process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID,
     NEXT_PUBLIC_ADSENSE_SLOT_ID: process.env.NEXT_PUBLIC_ADSENSE_SLOT_ID,
   },
@@ -36,7 +39,7 @@ const nextConfig: NextConfig = {
     config.resolve = config.resolve || {};
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
-      '@': path.resolve(__dirname),
+      '@': path.resolve(__dirname, 'src'),
     };
 
     return config;

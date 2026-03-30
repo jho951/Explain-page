@@ -1,0 +1,28 @@
+'use client';
+
+import { usePathname } from 'next/navigation';
+
+import { NotFoundTiles } from '@/features';
+import { Link } from '@/shared/ui';
+import { resolveLocaleFromPathname } from '@/shared/utils';
+import styles from '@/features/notFound/pages/NotFoundPage.module.css';
+
+function NotFound() {
+  const pathname = usePathname();
+  const locale = resolveLocaleFromPathname(pathname);
+  const title = locale === 'en' ? 'Page not found.' : '페이지를 찾을 수 없습니다.';
+  const homeLabel = locale === 'en' ? 'Back to home' : '홈으로 돌아가기';
+
+  return (
+    <div className={styles.notFoundContainer}>
+      <h1 className={styles.notFoundTitle}>{title}</h1>
+      <section className={styles.notFoundTileWrapper}>
+        <NotFoundTiles />
+      </section>
+      <Link className={styles.homeLink} href="/public">
+        {homeLabel}
+      </Link>
+    </div>
+  );
+}
+export default NotFound;

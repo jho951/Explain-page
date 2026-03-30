@@ -1,0 +1,10 @@
+.link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+:global(html.dark) .icon {
+  filter: brightness(0) invert(1);
+}

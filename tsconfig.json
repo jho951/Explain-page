@@ -12,10 +12,10 @@
     "baseUrl": "./",
     "rootDir": ".",
     "paths": {
-      "@/*": ["*"]
+      "@/*": ["src/*"]
     },
 
-    "typeRoots": ["./types", "./node_modules/@types"],
+    "typeRoots": ["./src/shared/types", "./node_modules/@types"],
     "types": ["react", "react-dom", "node"],
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -36,12 +36,11 @@
 
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "middleware.ts",
     ".next/types/**/*.ts",
-    "libs/**/*",
-    ".vscode/not-found.tsx",
-    "components/*"
+    ".vscode/not-found.tsx"
   ],
 
   "exclude": ["node_modules", ".next"]
