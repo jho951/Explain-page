@@ -42,4 +42,4 @@ docker compose -f "$COMPOSE_FILE" up --build -d
 docker compose -f "$COMPOSE_FILE" ps
 
 echo
-echo "App is running in Docker ($MODE): http://localhost:$HOST_PORT"
+echo "App is running in Docker ($MODE): http://127.0.0.1:$HOST_PORT"

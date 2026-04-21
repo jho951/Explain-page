@@ -8,7 +8,7 @@ const siteMetadata: Metadata = {
     template: `%s | ${TITLE}`,
   },
   description: DESCRIPTION,
-  metadataBase: new URL(PROJECT_URL || 'http://localhost:3000'),
+  metadataBase: new URL(PROJECT_URL || 'http://127.0.0.1:3000'),
 
   manifest: '/site.webmanifest',
 
@@ -16,7 +16,7 @@ const siteMetadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     type: 'website',
-    url: PROJECT_URL || 'http://localhost:3000',
+    url: PROJECT_URL || 'http://127.0.0.1:3000',
     siteName: TITLE,
   },
 
@@ -27,7 +27,7 @@ const siteMetadata: Metadata = {
   },
 
   alternates: {
-    canonical: PROJECT_URL || 'http://localhost:3000',
+    canonical: PROJECT_URL || 'http://127.0.0.1:3000',
   },
   icons: {
     icon: '/favicon.ico',
