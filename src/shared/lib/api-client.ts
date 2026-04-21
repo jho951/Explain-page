@@ -10,17 +10,17 @@ import {
 import { buildStartFrontendSignInUrl } from '@/shared/lib/auth-routing';
 
 const GATEWAY_API_PREFIXES = [
-  '/v1/auth/',
-  '/v1/users/',
-  '/v1/documents/',
-  '/v1/editor-operations/',
-  '/v1/admin/',
-  '/v1/oauth2/',
-  '/v1/login/oauth2/',
-  '/v1/.well-known/jwks.json',
-  '/v1/health',
-  '/v1/ready',
-  '/v1/error',
+  '/auth/',
+  '/users/',
+  '/documents/',
+  '/editor-operations/',
+  '/admin/',
+  '/oauth2/',
+  '/login/oauth2/',
+  '/.well-known/jwks.json',
+  '/health',
+  '/ready',
+  '/error',
 ] as const;
 
 class GatewayRequestError extends Error {
@@ -43,8 +43,12 @@ const assertGatewayPath = (path: string) => {
     throw new Error(`Gateway API path must start with "/": ${path}`);
   }
 
+  const normalizedPath = path.startsWith('/v1/') ? path.slice(3) : path;
+
   if (
-    !GATEWAY_API_PREFIXES.some(prefix => path === prefix.slice(0, -1) || path.startsWith(prefix))
+    !GATEWAY_API_PREFIXES.some(
+      prefix => normalizedPath === prefix.slice(0, -1) || normalizedPath.startsWith(prefix),
+    )
   ) {
     throw new Error(`Unsupported gateway API path: ${path}`);
   }
