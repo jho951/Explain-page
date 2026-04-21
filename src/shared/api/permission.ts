@@ -1,9 +1,7 @@
-import { requestGatewayJson } from '@/shared/lib';
 import type { PermissionMeResponse } from '@/shared/api/permission.types';
 
-const fetchMyPermissions = async () =>
-  requestGatewayJson<PermissionMeResponse>('/permissions/me', {
-    method: 'GET',
-  });
+const fetchMyPermissions = async (): Promise<PermissionMeResponse> => {
+  throw new Error('Authz permission checks are internal-only through Gateway admin precheck.');
+};
 
 export { fetchMyPermissions };

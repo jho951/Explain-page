@@ -16,6 +16,7 @@ interface RawAuthUser {
   avatar_url?: string;
   roles?: string[];
   role?: string;
+  status?: string;
 }
 
 interface RawAuthMeResponse extends RawAuthUser {

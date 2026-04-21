@@ -12,10 +12,15 @@ import { buildStartFrontendSignInUrl } from '@/shared/lib/auth-routing';
 const GATEWAY_API_PREFIXES = [
   '/v1/auth/',
   '/v1/users/',
-  '/v1/workspaces/',
   '/v1/documents/',
+  '/v1/editor-operations/',
   '/v1/admin/',
-  '/v1/permissions/',
+  '/v1/oauth2/',
+  '/v1/login/oauth2/',
+  '/v1/.well-known/jwks.json',
+  '/v1/health',
+  '/v1/ready',
+  '/v1/error',
 ] as const;
 
 class GatewayRequestError extends Error {

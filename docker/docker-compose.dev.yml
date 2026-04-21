@@ -1,0 +1,28 @@
+name: explain-page-dev
+
+services:
+  explain-page-dev:
+    container_name: explain-page-dev
+    image: explain-page:dev
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: dev
+    env_file:
+      - ../.env.local
+    environment:
+      NODE_ENV: development
+      HOSTNAME: 0.0.0.0
+      PORT: 3000
+      WATCHPACK_POLLING: "true"
+    ports:
+      - "${EXPLAIN_PAGE_DEV_PORT:-3000}:3000"
+    volumes:
+      - ..:/app
+      - explain-page-node-modules:/app/node_modules
+      - explain-page-next:/app/.next
+    restart: unless-stopped
+
+volumes:
+  explain-page-node-modules:
+  explain-page-next:

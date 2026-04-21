@@ -1,0 +1,19 @@
+name: explain-page-prod
+
+services:
+  explain-page-prod:
+    container_name: explain-page-prod
+    image: explain-page:prod
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: runner
+    env_file:
+      - ../.env.production
+    environment:
+      NODE_ENV: production
+      HOSTNAME: 0.0.0.0
+      PORT: 3000
+    ports:
+      - "${EXPLAIN_PAGE_PROD_PORT:-3000}:3000"
+    restart: unless-stopped

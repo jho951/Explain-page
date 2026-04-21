@@ -28,6 +28,7 @@ const parseAuthSession = (payload: RawAuthMeResponse): AuthSession => {
   const email = resolvedUser.email ?? '';
   const name = resolvedUser.name ?? email ?? '';
   const avatarUrl = resolvedUser.avatarUrl ?? resolvedUser.avatar_url;
+  const status = resolvedUser.status;
   const roles = Array.isArray(resolvedUser.roles)
     ? resolvedUser.roles
     : resolvedUser.role
@@ -45,6 +46,7 @@ const parseAuthSession = (payload: RawAuthMeResponse): AuthSession => {
           name,
           avatarUrl,
           roles,
+          status,
         }
       : null,
   };
@@ -86,8 +88,9 @@ const exchangeAuthTicket = async (ticket: string): Promise<void> => {
 
 const fetchAuthMe = async (): Promise<AuthSession> => {
   logAuthApi('fetchAuthMe:start');
+  const authMePath = `${AUTH_ME_PATH}?page=${encodeURIComponent(AUTH_LOGIN_PAGE)}`;
   try {
-    const payload = await requestGatewayJson<RawAuthMeResponse>(AUTH_ME_PATH, {
+    const payload = await requestGatewayJson<RawAuthMeResponse>(authMePath, {
       method: 'GET',
     });
     logAuthApi('fetchAuthMe:payload', payload);
@@ -107,7 +110,7 @@ const fetchAuthMe = async (): Promise<AuthSession> => {
     await refreshGatewaySession();
     logAuthApi('fetchAuthMe:fallback-refresh:done');
 
-    const retriedPayload = await requestGatewayJson<RawAuthMeResponse>(AUTH_ME_PATH, {
+    const retriedPayload = await requestGatewayJson<RawAuthMeResponse>(authMePath, {
       method: 'GET',
     });
     logAuthApi('fetchAuthMe:retry-payload', retriedPayload);

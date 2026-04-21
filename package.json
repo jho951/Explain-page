@@ -31,7 +31,7 @@
     "_format:check": "npm run format:check"
   },
   "dependencies": {
-    "@jho951/ui-components": "^0.1.3",
+    "@jho951/ui-components": "^0.1.4",
     "@reduxjs/toolkit": "^2.11.2",
     "accept-language": "^3.0.20",
     "clsx": "^2.1.1",

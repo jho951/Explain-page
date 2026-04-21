@@ -4,6 +4,7 @@ interface AuthUser {
   name: string;
   avatarUrl?: string;
   roles: string[];
+  status?: string;
 }
 
 export type { AuthUser };

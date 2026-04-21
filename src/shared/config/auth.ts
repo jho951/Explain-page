@@ -12,7 +12,7 @@ const AUTH_REFRESH_PATH = process.env.NEXT_PUBLIC_GATEWAY_AUTH_REFRESH_PATH || '
 const AUTH_LOGOUT_PATH = process.env.NEXT_PUBLIC_GATEWAY_AUTH_LOGOUT_PATH || '/v1/auth/logout';
 const AUTH_EXCHANGE_DONE_STORAGE_KEY =
   process.env.NEXT_PUBLIC_AUTH_EXCHANGE_DONE_STORAGE_KEY || 'auth_exchange_done';
-const AUTH_LOGIN_PAGE = process.env.NEXT_PUBLIC_GATEWAY_AUTH_LOGIN_PAGE || 'editor';
+const AUTH_LOGIN_PAGE = process.env.NEXT_PUBLIC_GATEWAY_AUTH_LOGIN_PAGE || 'explain';
 
 const normalizeRedirectPath = (value?: string | null) => {
   if (!value) return '/';

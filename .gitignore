@@ -13,11 +13,12 @@ node_modules/
 # -----------------------------
 # ✅ Build outputs
 # -----------------------------
-.next/                  
+.next/
 .next/*
-.out/                    
-dist/                 
-build/                 
+.out/
+dist/
+build/
+
 
 # 🔥 HMR / Webpack 개발 캐시 (강력 권장)
 .next/static/webpack/*
@@ -36,20 +37,24 @@ next-env.d.ts
 # -----------------------------
 coverage/
 
+
 # -----------------------------
 # 🔒 Environment variables
 # -----------------------------
 .env*
 !.env.example
+!.env.production.example
 
 # -----------------------------
 # 🐛 Debug logs
 # -----------------------------
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-.pnpm-debug.log*
+lerna-debug.log*
 
 # -----------------------------
 # 🧼 OS / Editor files
@@ -57,6 +62,7 @@ pnpm-debug.log*
 .DS_Store
 *.pem
 .vscode/
+!.vscode/extensions.json
 .idea/
 
 # -----------------------------
@@ -76,6 +82,3 @@ pnpm-debug.log*
 *.log                  # 기타 로그 파일
 *.swp                  # vim 임시 파일
 *.tmp                  # 임시 파일
-
-*storybook.log
-storybook-static
