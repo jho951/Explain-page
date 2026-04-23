@@ -14,7 +14,9 @@ The frontend now treats authentication as cookie-based:
 
 - Gateway requests keep `credentials: "include"`.
 - The frontend no longer persists access tokens in `localStorage`.
-- Session state is derived from `/v1/auth/me` and server-issued cookies.
+- Browser session validity is derived from `/v1/auth/session`.
+- User profile state is read separately from `/v1/auth/me`.
+- The frontend does not treat cookie token values as client-side state.
 
 ## Consequences
 

@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
-import { fetchAuthMe } from '@/shared/api';
+import { fetchAuthMe, fetchAuthSession } from '@/shared/api';
 import { AUTH_CALLBACK_PATH } from '@/shared/config';
 import { setAuthExchangeCompleted } from '@/shared/lib';
 import { useAppDispatch } from '@/shared/state/hooks';
@@ -30,8 +30,25 @@ function AuthBootstrap() {
 
     const bootstrap = async () => {
       try {
-        const authUser = await fetchAuthMe();
+        await fetchAuthSession();
+        if (cancelled) return;
         setAuthExchangeCompleted(true);
+      } catch (error) {
+        if (cancelled) return;
+
+        dispatch(
+          setAuthState({
+            user: null,
+            status: 'anonymous',
+            initialized: true,
+            error: error instanceof Error ? error.message : 'Failed to load auth session.',
+          }),
+        );
+        return;
+      }
+
+      try {
+        const authUser = await fetchAuthMe();
         if (cancelled) return;
 
         dispatch(
@@ -48,9 +65,9 @@ function AuthBootstrap() {
         dispatch(
           setAuthState({
             user: null,
-            status: 'anonymous',
+            status: 'authenticated',
             initialized: true,
-            error: error instanceof Error ? error.message : 'Failed to load auth session.',
+            error: error instanceof Error ? error.message : 'Failed to load auth profile.',
           }),
         );
       }

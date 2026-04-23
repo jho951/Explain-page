@@ -41,8 +41,8 @@ EXPLAIN_PAGE_DEV_PORT=3001 ./scripts/run.docker.sh dev
 
 - 로그인 시작: `/v1/auth/sso/start`
 - ticket 교환: `/v1/auth/exchange`
-- 세션 요약: `/v1/auth/me`
-- 세션 alias: `/v1/auth/session`
+- 세션 확인: `/v1/auth/session`
+- 사용자 요약: `/v1/auth/me`
 - refresh: `/v1/auth/refresh`
 - logout: `/v1/auth/logout`
 - 사용자 정보: `/v1/users/me`
@@ -56,8 +56,16 @@ EXPLAIN_PAGE_DEV_PORT=3001 ./scripts/run.docker.sh dev
 2. Gateway/Auth Service가 GitHub OAuth를 수행합니다.
 3. callback으로 돌아오면 프론트가 `ticket`을 받습니다.
 4. 프론트가 `POST /v1/auth/exchange`를 호출합니다.
-5. 서버가 session/access/refresh cookie를 설정합니다.
-6. 프론트가 `GET /v1/auth/me?page=explain`로 현재 세션을 확인합니다.
+5. 서버가 `sso_session`, `ACCESS_TOKEN`, refresh cookie를 설정할 수 있습니다.
+6. callback은 `GET /v1/auth/session`으로 Gateway 브라우저 세션이 성립했는지 확인한 뒤 `next`로 redirect합니다.
+7. 앱 초기화는 `GET /v1/auth/session`으로 인증 여부를 확인하고, 인증된 경우에만 `GET /v1/auth/me?page=explain`로 사용자 요약을 읽습니다.
+
+프론트 인증 해석 원칙은 아래와 같습니다.
+
+- 브라우저는 cookie를 자동 전송하지만, 프론트 코드가 개별 cookie 값을 읽어 인증을 판단하지는 않습니다.
+- 프론트 auth 상태의 source of truth는 `/v1/auth/session`입니다.
+- `/v1/auth/me`는 로그인 성립 판정이 아니라 사용자 프로필 요약 조회입니다.
+- refresh는 cookie 기반 `POST /v1/auth/refresh`로 수행합니다.
 
 ## Docker 구조
 

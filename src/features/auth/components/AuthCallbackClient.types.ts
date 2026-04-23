@@ -1,4 +1,4 @@
-type CallbackStep = 'idle' | 'exchange' | 'auth-me' | 'done';
+type CallbackStep = 'idle' | 'exchange' | 'auth-session' | 'done';
 
 interface AuthCallbackClientProps {
   callbackError?: string;

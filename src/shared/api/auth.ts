@@ -5,8 +5,9 @@ import {
   AUTH_LOGIN_PATH,
   AUTH_LOGOUT_PATH,
   AUTH_ME_PATH,
+  AUTH_SESSION_PATH,
 } from '@/shared/config';
-import type { AuthMeResponse } from '@/shared/api/auth.types';
+import type { AuthMeResponse, AuthSessionValidationResponse } from '@/shared/api/auth.types';
 import type { AuthUser } from '@/shared/api/user.types';
 import {
   buildGatewayUrl,
@@ -21,6 +22,27 @@ import {
 } from '@/shared/lib';
 const logAuthApi = (event: string, detail?: unknown) => {
   console.log(`[auth-api] ${event}`, detail ?? '');
+};
+
+const requestWithRefreshFallback = async <T>(
+  request: () => Promise<T>,
+  label: string,
+): Promise<T> => {
+  try {
+    return await request();
+  } catch (error) {
+    const shouldFallbackRefresh =
+      error instanceof GatewayRequestError && error.status === 401 && hasCompletedAuthExchange();
+
+    if (!shouldFallbackRefresh) {
+      throw error;
+    }
+
+    logAuthApi(`${label}:fallback-refresh:start`);
+    await refreshGatewaySession();
+    logAuthApi(`${label}:fallback-refresh:done`);
+    return request();
+  }
 };
 
 const parseAuthUser = (payload: AuthMeResponse): AuthUser => {
@@ -74,39 +96,41 @@ const exchangeAuthTicket = async (ticket: string): Promise<void> => {
   return;
 };
 
+const fetchAuthSession = async (): Promise<AuthSessionValidationResponse> => {
+  logAuthApi('fetchAuthSession:start');
+
+  const payload = await requestWithRefreshFallback(
+    () =>
+      requestGatewayJson<AuthSessionValidationResponse>(AUTH_SESSION_PATH, {
+        method: 'GET',
+      }),
+    'fetchAuthSession',
+  );
+
+  logAuthApi('fetchAuthSession:payload', payload);
+
+  if (payload.authenticated !== true) {
+    throw new GatewayRequestError('Gateway session is not authenticated.', 401);
+  }
+
+  return payload;
+};
+
 const fetchAuthMe = async (): Promise<AuthUser> => {
   logAuthApi('fetchAuthMe:start');
   const authMePath = `${AUTH_ME_PATH}?page=${encodeURIComponent(AUTH_LOGIN_PAGE)}`;
-  try {
-    const payload = await requestGatewayJson<AuthMeResponse>(authMePath, {
-      method: 'GET',
-    });
-    logAuthApi('fetchAuthMe:payload', payload);
+  const payload = await requestWithRefreshFallback(
+    () =>
+      requestGatewayJson<AuthMeResponse>(authMePath, {
+        method: 'GET',
+      }),
+    'fetchAuthMe',
+  );
+  logAuthApi('fetchAuthMe:payload', payload);
 
-    const user = parseAuthUser(payload);
-    logAuthApi('fetchAuthMe:parsed', user);
-    return user;
-  } catch (error) {
-    const shouldFallbackRefresh =
-      error instanceof GatewayRequestError && error.status === 401 && hasCompletedAuthExchange();
-
-    if (!shouldFallbackRefresh) {
-      throw error;
-    }
-
-    logAuthApi('fetchAuthMe:fallback-refresh:start');
-    await refreshGatewaySession();
-    logAuthApi('fetchAuthMe:fallback-refresh:done');
-
-    const retriedPayload = await requestGatewayJson<AuthMeResponse>(authMePath, {
-      method: 'GET',
-    });
-    logAuthApi('fetchAuthMe:retry-payload', retriedPayload);
-
-    const retriedUser = parseAuthUser(retriedPayload);
-    logAuthApi('fetchAuthMe:retry-parsed', retriedUser);
-    return retriedUser;
-  }
+  const user = parseAuthUser(payload);
+  logAuthApi('fetchAuthMe:parsed', user);
+  return user;
 };
 
 const isGatewayLogoutConfigured = () => AUTH_LOGOUT_PATH.length > 0;
@@ -129,6 +153,7 @@ const logoutAuthSession = async () => {
 export {
   exchangeAuthTicket,
   fetchAuthMe,
+  fetchAuthSession,
   getGatewayLoginUrl,
   isGatewayConfigured,
   isGatewayLogoutConfigured,

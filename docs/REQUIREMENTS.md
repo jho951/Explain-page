@@ -21,9 +21,12 @@
 ### 인증 가정
 
 - 로그인 시작 경로는 Gateway의 `/v1/auth/sso/start`다.
-- callback 이후 프론트는 `ticket -> /v1/auth/exchange -> /v1/auth/me` 순서를 따른다.
+- callback 이후 프론트는 `ticket -> /v1/auth/exchange -> /v1/auth/session -> redirect` 순서로 브라우저 세션을 확정한다.
+- 앱 초기화 시 프론트는 먼저 `/v1/auth/session`으로 인증 여부를 확인하고, 인증된 경우에만 `/v1/auth/me`로 사용자 요약을 조회한다.
 - 프론트는 `Authorization` 헤더를 기본 세션 상태 저장소로 사용하지 않는다.
 - 인증 관련 요청은 `credentials: "include"`를 사용한다.
+- 브라우저는 cookie 값을 직접 읽어 인증 결정을 내리지 않고, Gateway의 `/v1/auth/session`과 `/v1/auth/me` 응답을 소비한다.
+- Backend는 `sso_session`, `ACCESS_TOKEN`, refresh cookie를 발급할 수 있지만, 프론트가 token 값을 Redux나 storage에 저장하지는 않는다.
 - explain 프론트 기본 대상 page는 `explain`이다.
 
 ### Gateway 공개 경로 가정

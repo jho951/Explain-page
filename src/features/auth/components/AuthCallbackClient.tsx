@@ -4,11 +4,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Button } from '@jho951/ui-components';
 
-import { exchangeAuthTicket, fetchAuthMe } from '@/shared/api';
+import { exchangeAuthTicket, fetchAuthSession } from '@/shared/api';
 import {
   AUTH_DEFAULT_NEXT_PATH,
   AUTH_EXCHANGE_PATH,
-  AUTH_ME_PATH,
+  AUTH_SESSION_PATH,
   normalizeRedirectPath,
 } from '@/shared/config';
 import type {
@@ -36,7 +36,7 @@ function AuthCallbackClient({ callbackError, ticketParam, nextParam }: AuthCallb
             retryHint: 'Please try again shortly.',
             retryLogin: 'Sign in again',
             exchanging: 'Exchanging auth ticket for session...',
-            checking: 'Validating Gateway auth/profile...',
+            checking: 'Validating Gateway session...',
           }
         : {
             missingTicket: 'SSO callback ticket 이 없습니다. 다시 로그인해 주세요.',
@@ -44,7 +44,7 @@ function AuthCallbackClient({ callbackError, ticketParam, nextParam }: AuthCallb
             retryHint: '잠시 후 다시 시도해 주세요.',
             retryLogin: '다시 로그인',
             exchanging: '인증 ticket을 세션으로 교환하고 있습니다...',
-            checking: 'Gateway 인증/사용자 정보를 확인하고 있습니다...',
+            checking: 'Gateway 세션을 확인하고 있습니다...',
           },
     [locale],
   );
@@ -84,11 +84,11 @@ function AuthCallbackClient({ callbackError, ticketParam, nextParam }: AuthCallb
         await exchangeAuthTicket(ticket);
         logAuthCallback('completeSignIn:exchange:done');
 
-        currentStep = 'auth-me';
-        setStep('auth-me');
-        logAuthCallback('completeSignIn:auth-me:start');
-        const authUser = await fetchAuthMe();
-        logAuthCallback('completeSignIn:auth-me:done', authUser);
+        currentStep = 'auth-session';
+        setStep('auth-session');
+        logAuthCallback('completeSignIn:auth-session:start');
+        const authSession = await fetchAuthSession();
+        logAuthCallback('completeSignIn:auth-session:done', authSession);
 
         if (!cancelled) {
           const successRedirectUrl = nextPath;
@@ -101,7 +101,7 @@ function AuthCallbackClient({ callbackError, ticketParam, nextParam }: AuthCallb
         if (!cancelled) {
           const message =
             error instanceof GatewayRequestError
-              ? `[${currentStep === 'exchange' ? AUTH_EXCHANGE_PATH : AUTH_ME_PATH} ${error.status}] ${error.message}`
+              ? `[${currentStep === 'exchange' ? AUTH_EXCHANGE_PATH : AUTH_SESSION_PATH} ${error.status}] ${error.message}`
               : error instanceof Error
                 ? error.message
                 : 'Failed to verify gateway auth.';
