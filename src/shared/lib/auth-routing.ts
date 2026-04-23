@@ -11,7 +11,7 @@ const getConsumerOrigin = () => {
   try {
     return new URL(AUTH_CONSUMER_CALLBACK_URL).origin;
   } catch {
-    return PROJECT_URL || 'http://127.0.0.1:3000';
+    return PROJECT_URL || 'http://localhost:3000';
   }
 };
 

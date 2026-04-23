@@ -47,7 +47,13 @@ const nextConfig: NextConfig = {
 
   compress: true,
 
-  allowedDevOrigins: ['172.30.*.*', 'local-origin.dev', '*.local-origin.dev'],
+  allowedDevOrigins: [
+    '127.0.0.1',
+    'localhost',
+    '172.30.*.*',
+    'local-origin.dev',
+    '*.local-origin.dev',
+  ],
 };
 
 export default nextConfig;

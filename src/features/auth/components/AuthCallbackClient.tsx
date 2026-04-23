@@ -87,11 +87,8 @@ function AuthCallbackClient({ callbackError, ticketParam, nextParam }: AuthCallb
         currentStep = 'auth-me';
         setStep('auth-me');
         logAuthCallback('completeSignIn:auth-me:start');
-        const authMe = await fetchAuthMe();
-        logAuthCallback('completeSignIn:auth-me:done', authMe);
-
-        if (!authMe.authenticated) throw new Error('Gateway auth state is not authenticated.');
-        if (!authMe.user) throw new Error('Gateway auth profile is missing.');
+        const authUser = await fetchAuthMe();
+        logAuthCallback('completeSignIn:auth-me:done', authUser);
 
         if (!cancelled) {
           const successRedirectUrl = nextPath;

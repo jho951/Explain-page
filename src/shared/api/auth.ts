@@ -6,7 +6,8 @@ import {
   AUTH_LOGOUT_PATH,
   AUTH_ME_PATH,
 } from '@/shared/config';
-import type { RawAuthMeResponse, AuthSession } from '@/shared/api/auth.types';
+import type { AuthMeResponse } from '@/shared/api/auth.types';
+import type { AuthUser } from '@/shared/api/user.types';
 import {
   buildGatewayUrl,
   buildCallbackUrl,
@@ -22,34 +23,21 @@ const logAuthApi = (event: string, detail?: unknown) => {
   console.log(`[auth-api] ${event}`, detail ?? '');
 };
 
-const parseAuthSession = (payload: RawAuthMeResponse): AuthSession => {
-  const resolvedUser = payload.user ?? payload;
-  const userId = resolvedUser.userId ?? resolvedUser.user_id ?? resolvedUser.id ?? '';
-  const email = resolvedUser.email ?? '';
-  const name = resolvedUser.name ?? email ?? '';
-  const avatarUrl = resolvedUser.avatarUrl ?? resolvedUser.avatar_url;
-  const status = resolvedUser.status;
-  const roles = Array.isArray(resolvedUser.roles)
-    ? resolvedUser.roles
-    : resolvedUser.role
-      ? [resolvedUser.role]
-      : [];
-  const hasUserProfile = Boolean(userId || email || name || roles.length > 0);
-
-  return {
-    authenticated: payload.authenticated !== false,
-    sessionId: payload.sessionId ?? payload.session_id ?? '',
-    user: hasUserProfile
-      ? {
-          id: userId,
-          email,
-          name,
-          avatarUrl,
-          roles,
-          status,
-        }
-      : null,
+const parseAuthUser = (payload: AuthMeResponse): AuthUser => {
+  const user: AuthUser = {
+    id: payload.id ?? '',
+    email: payload.email ?? '',
+    name: payload.name ?? payload.email ?? '',
+    avatarUrl: payload.avatarUrl ?? undefined,
+    roles: Array.isArray(payload.roles) ? payload.roles : [],
+    status: payload.status,
   };
+
+  if (!user.id && !user.email && !user.name && user.roles.length === 0 && !user.status) {
+    throw new Error('Gateway auth profile is missing.');
+  }
+
+  return user;
 };
 
 const getGatewayLoginUrl = (nextPath?: string) => {
@@ -86,18 +74,18 @@ const exchangeAuthTicket = async (ticket: string): Promise<void> => {
   return;
 };
 
-const fetchAuthMe = async (): Promise<AuthSession> => {
+const fetchAuthMe = async (): Promise<AuthUser> => {
   logAuthApi('fetchAuthMe:start');
   const authMePath = `${AUTH_ME_PATH}?page=${encodeURIComponent(AUTH_LOGIN_PAGE)}`;
   try {
-    const payload = await requestGatewayJson<RawAuthMeResponse>(authMePath, {
+    const payload = await requestGatewayJson<AuthMeResponse>(authMePath, {
       method: 'GET',
     });
     logAuthApi('fetchAuthMe:payload', payload);
 
-    const session = parseAuthSession(payload);
-    logAuthApi('fetchAuthMe:parsed', session);
-    return session;
+    const user = parseAuthUser(payload);
+    logAuthApi('fetchAuthMe:parsed', user);
+    return user;
   } catch (error) {
     const shouldFallbackRefresh =
       error instanceof GatewayRequestError && error.status === 401 && hasCompletedAuthExchange();
@@ -110,14 +98,14 @@ const fetchAuthMe = async (): Promise<AuthSession> => {
     await refreshGatewaySession();
     logAuthApi('fetchAuthMe:fallback-refresh:done');
 
-    const retriedPayload = await requestGatewayJson<RawAuthMeResponse>(authMePath, {
+    const retriedPayload = await requestGatewayJson<AuthMeResponse>(authMePath, {
       method: 'GET',
     });
     logAuthApi('fetchAuthMe:retry-payload', retriedPayload);
 
-    const retriedSession = parseAuthSession(retriedPayload);
-    logAuthApi('fetchAuthMe:retry-parsed', retriedSession);
-    return retriedSession;
+    const retriedUser = parseAuthUser(retriedPayload);
+    logAuthApi('fetchAuthMe:retry-parsed', retriedUser);
+    return retriedUser;
   }
 };
 

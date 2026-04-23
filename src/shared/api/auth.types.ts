@@ -1,29 +1,18 @@
-import type { AuthUser } from '@/shared/api/user.types';
-
-interface AuthSession {
-  authenticated: boolean;
-  sessionId: string;
-  user: AuthUser | null;
-}
-
-interface RawAuthUser {
+interface AuthMeResponse {
   id?: string;
-  userId?: string;
-  user_id?: string;
   email?: string;
   name?: string;
-  avatarUrl?: string;
-  avatar_url?: string;
+  avatarUrl?: string | null;
   roles?: string[];
-  role?: string;
   status?: string;
 }
 
-interface RawAuthMeResponse extends RawAuthUser {
-  authenticated?: boolean;
-  sessionId?: string;
-  session_id?: string;
-  user?: RawAuthUser | null;
+interface AuthSessionValidationResponse {
+  authenticated: boolean;
+  userId: string;
+  status: string;
+  sessionId: string;
+  role: string;
 }
 
-export type { AuthSession, RawAuthMeResponse };
+export type { AuthMeResponse, AuthSessionValidationResponse };

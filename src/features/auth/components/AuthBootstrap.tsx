@@ -30,15 +30,13 @@ function AuthBootstrap() {
 
     const bootstrap = async () => {
       try {
-        const authSession = await fetchAuthMe();
-        if (!authSession.authenticated) throw new Error('Gateway auth state is not authenticated.');
+        const authUser = await fetchAuthMe();
         setAuthExchangeCompleted(true);
-        if (!authSession.user) throw new Error('Gateway auth profile is missing.');
         if (cancelled) return;
 
         dispatch(
           setAuthState({
-            user: authSession.user,
+            user: authUser,
             status: 'authenticated',
             initialized: true,
             error: null,
