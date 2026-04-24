@@ -1,11 +1,12 @@
-import { notFound, redirect } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 import { isGatewayConfigured } from '@/shared/api';
 import SignInTemplate from '@/features/auth/components/SignInTemplate';
-import { AUTH_DEFAULT_NEXT_PATH, SUPPORTED_LOCALES, normalizeRedirectPath } from '@/shared/config';
+import { AUTH_DEFAULT_NEXT_PATH, normalizeRedirectPath } from '@/shared/config';
 import { buildStartFrontendSignInUrl, isExternalStartFrontend } from '@/shared/lib';
 import type { Locale } from '@/shared/types';
 import type { LangSignInPageProps } from '@/app/[lang]/(auth)/signin/page.types';
+import { resolveSupportedLocale } from '@/app/route-factories';
 
 const copyByLocale: Record<Locale, { title: string; desc: string; dividerText: string }> = {
   ko: {
@@ -21,8 +22,7 @@ const copyByLocale: Record<Locale, { title: string; desc: string; dividerText: s
 };
 
 async function SignInPage({ params, searchParams }: LangSignInPageProps) {
-  const { lang } = await params;
-  if (!SUPPORTED_LOCALES.includes(lang)) notFound();
+  const lang = await resolveSupportedLocale(params);
 
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
   const nextParam = resolvedSearchParams?.next;

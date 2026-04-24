@@ -1,6 +1,3 @@
-import { InfoPage } from '@/features';
-import { DEFAULT_LOCALE } from '@/shared/config';
+import { createDefaultInfoPage } from '@/app/route-factories';
 
-export default async function BrandPage() {
-  return <InfoPage locale={DEFAULT_LOCALE} pageKey="brand" />;
-}
+export default createDefaultInfoPage('brand');

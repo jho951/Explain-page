@@ -1,8 +1,4 @@
-import { DEFAULT_LOCALE } from '@/shared/config';
 import { PortfolioLanding } from '@/features';
+import { createDefaultFeaturePage } from '@/app/route-factories';
 
-async function HomePage() {
-  return <PortfolioLanding locale={DEFAULT_LOCALE} />;
-}
-
-export default HomePage;
+export default createDefaultFeaturePage(PortfolioLanding);

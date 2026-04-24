@@ -1,6 +1,4 @@
 import { FaqPage } from '@/features';
-import { DEFAULT_LOCALE } from '@/shared/config';
+import { createDefaultFeaturePage } from '@/app/route-factories';
 
-export default async function Faq() {
-  return <FaqPage locale={DEFAULT_LOCALE} />;
-}
+export default createDefaultFeaturePage(FaqPage);
