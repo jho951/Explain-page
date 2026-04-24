@@ -4,7 +4,6 @@ import { Button } from '@jho951/ui-components';
 import { GNB } from '@/shared/config';
 import { HeaderAuthActions } from './HeaderAuthActions';
 import type { HeaderMobileMenuProps } from './Header.parts.types';
-import { buildStartFrontendSignInUrl } from '@/shared/lib';
 
 import styles from '@/shared/ui/header/Header.module.css';
 
@@ -14,6 +13,7 @@ function HeaderMobileMenu({
   openCategoryId,
   onToggleCategory,
   onNavigate,
+  onLogin,
   isAuthenticated,
   isAuthBusy,
   onLogout,
@@ -96,7 +96,7 @@ function HeaderMobileMenu({
           mobile
           isAuthenticated={isAuthenticated}
           isBusy={isAuthBusy}
-          onLogin={() => onNavigate(buildStartFrontendSignInUrl())}
+          onLogin={onLogin}
           onLogout={onLogout}
         />
       </div>

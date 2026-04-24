@@ -1,14 +1,6 @@
 'use client';
 
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-  type CSSProperties,
-} from 'react';
-import { useRouter } from 'next/navigation';
+import { useRef, type CSSProperties } from 'react';
 import { Button, Icon } from '@jho951/ui-components';
 
 import { GNB } from '@/shared/config';
@@ -20,132 +12,40 @@ import { HeaderDesktopNav } from './HeaderDesktopNav';
 import { HeaderMobileMenu } from './HeaderMobileMenu';
 import { ICON_BASE_PATH } from '@/shared/config';
 import { useIsMobile } from '@/shared/hooks';
-import { buildStartFrontendSignInUrl } from '@/shared/lib';
-import { clearBrowserAuthCookies, setAuthExchangeCompleted } from '@/shared/lib';
-import { isGatewayLogoutConfigured, logoutAuthSession } from '@/shared/api';
 import { useAppSelector } from '@/shared/state/hooks';
+import { useHeaderExpandedHeight } from './useHeaderExpandedHeight';
+import { useHeaderMenuState } from './useHeaderMenuState';
+import { useHeaderNavigation } from './useHeaderNavigation';
 
 import styles from '@/shared/ui/header/Header.module.css';
 
 function Header({ pathname }: HeaderProps) {
-  const router = useRouter();
   const isMobile = useIsMobile();
   const headerRef = useRef<HTMLElement | null>(null);
   const headerInnerRef = useRef<HTMLDivElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
   const authStatus = useAppSelector(state => state.auth.status);
 
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [openCategoryId, setOpenCategoryId] = useState<string | null>(null);
-  const [desktopOpenIndex, setDesktopOpenIndex] = useState<number | null>(null);
-  const [expandedHeight, setExpandedHeight] = useState<number | null>(null);
+  const {
+    closeAll,
+    desktopOpenIndex,
+    isExpanded,
+    openCategoryId,
+    toggleCategory,
+    toggleDesktopMenu,
+    toggleMobileMenu,
+  } = useHeaderMenuState({ headerRef });
+  const { expandedHeight } = useHeaderExpandedHeight({
+    headerInnerRef,
+    isExpanded,
+    isMobile,
+    openCategoryId,
+    panelRef,
+  });
+  const { handleLogin, handleLogout, navigate } = useHeaderNavigation({ closeAll });
   const isAuthenticated = authStatus === 'authenticated';
   const isAuthBusy = authStatus === 'loading';
-  const canLogout = isGatewayLogoutConfigured();
   const showLogout = isAuthenticated;
-
-  const closeAll = useCallback(() => {
-    setIsExpanded(false);
-    setOpenCategoryId(null);
-    setDesktopOpenIndex(null);
-  }, []);
-
-  const isExternalHref = (href: string, target?: string) =>
-    target === '_blank' ||
-    href.startsWith('http://') ||
-    href.startsWith('https://') ||
-    href.startsWith('mailto:');
-
-  const navigate = (href: string, target?: string) => {
-    if (isExternalHref(href, target)) {
-      window.open(href, target ?? '_blank', 'noopener,noreferrer');
-    } else {
-      router.push(href);
-    }
-
-    closeAll();
-  };
-
-  const handleLogout = async () => {
-    try {
-      if (canLogout) {
-        await logoutAuthSession();
-      }
-    } finally {
-      clearBrowserAuthCookies();
-      setAuthExchangeCompleted(false);
-      closeAll();
-      window.location.replace('/');
-    }
-  };
-
-  const updateExpandedHeight = useCallback(() => {
-    const headerEl = headerRef.current;
-    const headerInnerEl = headerInnerRef.current;
-    const panelEl = panelRef.current;
-    if (!headerEl || !headerInnerEl || !panelEl || !isMobile || !isExpanded) return;
-
-    const headerInnerHeight = headerInnerEl.getBoundingClientRect().height;
-    const panelHeight = panelEl.getBoundingClientRect().height;
-    const next = Math.ceil(headerInnerHeight + panelHeight);
-
-    setExpandedHeight(prev => (prev === next ? prev : next));
-  }, [isExpanded, isMobile]);
-
-  useLayoutEffect(() => {
-    if (!isMobile || !isExpanded) {
-      setExpandedHeight(null);
-      return;
-    }
-
-    const raf = requestAnimationFrame(updateExpandedHeight);
-    return () => cancelAnimationFrame(raf);
-  }, [isMobile, isExpanded, openCategoryId, updateExpandedHeight]);
-
-  useEffect(() => {
-    if (!isMobile || !isExpanded || !panelRef.current) return;
-
-    const observer = new ResizeObserver(() => updateExpandedHeight());
-    observer.observe(panelRef.current);
-
-    return () => observer.disconnect();
-  }, [isMobile, isExpanded, updateExpandedHeight]);
-
-  useEffect(() => {
-    const panelEl = panelRef.current;
-    if (!isMobile || !isExpanded || !panelEl) return;
-
-    const handleTransitionEnd = (event: TransitionEvent) => {
-      if (!(event.target instanceof HTMLElement)) return;
-      if (!panelEl.contains(event.target)) return;
-
-      updateExpandedHeight();
-    };
-
-    panelEl.addEventListener('transitionend', handleTransitionEnd);
-    return () => panelEl.removeEventListener('transitionend', handleTransitionEnd);
-  }, [isMobile, isExpanded, updateExpandedHeight]);
-
-  useEffect(() => {
-    if (desktopOpenIndex === null) return;
-
-    const handlePointerDown = (event: PointerEvent) => {
-      if (headerRef.current?.contains(event.target as Node)) return;
-      setDesktopOpenIndex(null);
-    };
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setDesktopOpenIndex(null);
-    };
-
-    window.addEventListener('pointerdown', handlePointerDown);
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      window.removeEventListener('pointerdown', handlePointerDown);
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [desktopOpenIndex]);
 
   const headerStyle: CSSProperties | undefined =
     isMobile && expandedHeight
@@ -172,9 +72,7 @@ function Header({ pathname }: HeaderProps) {
                 index={index}
                 desktopOpenIndex={desktopOpenIndex}
                 onNavigate={navigate}
-                onToggleMenu={nextIndex =>
-                  setDesktopOpenIndex(prev => (prev === nextIndex ? null : nextIndex))
-                }
+                onToggleMenu={toggleDesktopMenu}
               />
             ))}
           </nav>
@@ -185,7 +83,7 @@ function Header({ pathname }: HeaderProps) {
             <HeaderAuthActions
               isAuthenticated={showLogout}
               isBusy={isAuthBusy}
-              onLogin={() => navigate(buildStartFrontendSignInUrl())}
+              onLogin={handleLogin}
               onLogout={handleLogout}
             />
           )}
@@ -197,7 +95,7 @@ function Header({ pathname }: HeaderProps) {
               aria-label={isExpanded ? '메뉴 닫기' : '메뉴 열기'}
               aria-controls="ttHeaderPanel"
               aria-expanded={isExpanded}
-              onClick={() => setIsExpanded(prev => !prev)}
+              onClick={toggleMobileMenu}
             >
               {isExpanded ? (
                 <Icon name="close" source="url" basePath={ICON_BASE_PATH} size={28} />
@@ -215,12 +113,11 @@ function Header({ pathname }: HeaderProps) {
           isExpanded={isExpanded}
           openCategoryId={openCategoryId}
           onNavigate={navigate}
+          onLogin={handleLogin}
           isAuthenticated={showLogout}
           isAuthBusy={isAuthBusy}
           onLogout={handleLogout}
-          onToggleCategory={categoryId =>
-            setOpenCategoryId(prev => (prev === categoryId ? null : categoryId))
-          }
+          onToggleCategory={toggleCategory}
         />
       )}
     </header>

@@ -17,6 +17,7 @@ interface HeaderMobileMenuProps {
   openCategoryId: string | null;
   onToggleCategory: (categoryId: string) => void;
   onNavigate: (href: string, target?: string) => void;
+  onLogin: () => void;
   isAuthenticated: boolean;
   isAuthBusy: boolean;
   onLogout: () => void;
