@@ -1,6 +1,6 @@
 import LegalPage from '@/features/legal/components/LegalPage';
-import type { LangLegalPageProps } from '@/app/[lang]/legal/[slug]/page.types';
+import type { LocalizedRouteProps } from '@/app/route-factories';
 
-export default async function Legal({ params }: LangLegalPageProps) {
+export default async function Legal({ params }: LocalizedRouteProps<{ slug?: string }>) {
   return <LegalPage params={params} />;
 }

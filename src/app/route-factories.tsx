@@ -9,6 +9,7 @@ import type { InfoPageKey } from '@/features';
 import type { Locale } from '@/shared/types';
 
 type LocalizedParams = { lang: Locale };
+type RouteSearchParams = Record<string, string | string[] | undefined>;
 
 interface LocalizedRouteProps<TParams extends object = object> {
   params: Promise<LocalizedParams & TParams>;
@@ -16,6 +17,10 @@ interface LocalizedRouteProps<TParams extends object = object> {
 
 interface SlugRouteProps<TParams extends object = object> {
   params: Promise<{ slug?: string } & TParams>;
+}
+
+interface SearchRouteProps {
+  searchParams?: Promise<RouteSearchParams>;
 }
 
 type LocalePageRenderer = (locale: Locale) => ReactNode | Promise<ReactNode>;
@@ -85,4 +90,4 @@ export {
   createLocalizedLocaleRoute,
   resolveSupportedLocale,
 };
-export type { LocalizedRouteProps };
+export type { LocalizedRouteProps, RouteSearchParams, SearchRouteProps, SlugRouteProps };

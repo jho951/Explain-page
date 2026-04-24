@@ -5,8 +5,11 @@ import SignInTemplate from '@/features/auth/components/SignInTemplate';
 import { AUTH_DEFAULT_NEXT_PATH, normalizeRedirectPath } from '@/shared/config';
 import { buildStartFrontendSignInUrl, isExternalStartFrontend } from '@/shared/lib';
 import type { Locale } from '@/shared/types';
-import type { LangSignInPageProps } from '@/app/[lang]/(auth)/signin/page.types';
-import { resolveSupportedLocale } from '@/app/route-factories';
+import {
+  resolveSupportedLocale,
+  type LocalizedRouteProps,
+  type SearchRouteProps,
+} from '@/app/route-factories';
 
 const copyByLocale: Record<Locale, { title: string; desc: string; dividerText: string }> = {
   ko: {
@@ -21,7 +24,9 @@ const copyByLocale: Record<Locale, { title: string; desc: string; dividerText: s
   },
 };
 
-async function SignInPage({ params, searchParams }: LangSignInPageProps) {
+type LocalizedSignInRouteProps = LocalizedRouteProps & SearchRouteProps;
+
+async function SignInPage({ params, searchParams }: LocalizedSignInRouteProps) {
   const lang = await resolveSupportedLocale(params);
 
   const resolvedSearchParams = searchParams ? await searchParams : undefined;

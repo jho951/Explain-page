@@ -2,11 +2,11 @@ import { redirect } from 'next/navigation';
 
 import { isGatewayConfigured } from '@/shared/api';
 import SignInTemplate from '@/features/auth/components/SignInTemplate';
-import type { SignInPageProps } from '@/app/(default)/(auth)/signin/page.types';
 import { AUTH_DEFAULT_NEXT_PATH, DEFAULT_LOCALE, normalizeRedirectPath } from '@/shared/config';
 import { buildStartFrontendSignInUrl, isExternalStartFrontend } from '@/shared/lib';
+import type { SearchRouteProps } from '@/app/route-factories';
 
-async function SignInPage({ searchParams }: SignInPageProps) {
+async function SignInPage({ searchParams }: SearchRouteProps) {
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
   const nextParam = resolvedSearchParams?.next;
   const nextPath = normalizeRedirectPath(Array.isArray(nextParam) ? nextParam[0] : nextParam);
