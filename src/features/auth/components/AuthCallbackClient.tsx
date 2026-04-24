@@ -9,6 +9,7 @@ import {
   AUTH_DEFAULT_NEXT_PATH,
   AUTH_EXCHANGE_PATH,
   AUTH_SESSION_PATH,
+  START_FRONTEND_URL,
   normalizeRedirectPath,
 } from '@/shared/config';
 import type {
@@ -91,7 +92,7 @@ function AuthCallbackClient({ callbackError, ticketParam, nextParam }: AuthCallb
         logAuthCallback('completeSignIn:auth-session:done', authSession);
 
         if (!cancelled) {
-          const successRedirectUrl = nextPath;
+          const successRedirectUrl = START_FRONTEND_URL || nextPath;
           logAuthCallback('completeSignIn:success-redirect', { successRedirectUrl });
           setStep('done');
           window.location.replace(successRedirectUrl);

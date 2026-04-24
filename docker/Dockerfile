@@ -16,7 +16,7 @@ FROM base AS builder
 ARG NEXT_PUBLIC_GATEWAY_BASE_URL=https://api.myeditor.n-e.kr
 ARG NEXT_PUBLIC_SSO_BASE_URL=https://api.myeditor.n-e.kr
 ARG NEXT_PUBLIC_GATEWAY_AUTH_LOGIN_PAGE=explain
-ARG NEXT_PUBLIC_START_FRONTEND_URL=https://myeditor.n-e.kr
+ARG NEXT_PUBLIC_START_FRONTEND_URL=https://editor.myeditor.n-e.kr
 ARG NEXT_PUBLIC_SSO_CONSUMER_CALLBACK_URL=https://myeditor.n-e.kr/auth/callback
 ARG NEXT_PUBLIC_TITLE=Frontend UI
 ARG NEXT_PUBLIC_DESCRIPTION=Frontend UI service
