@@ -31,6 +31,7 @@ function Header({ pathname }: HeaderProps) {
   const router = useRouter();
   const isMobile = useIsMobile();
   const headerRef = useRef<HTMLElement | null>(null);
+  const headerInnerRef = useRef<HTMLDivElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
   const authStatus = useAppSelector(state => state.auth.status);
 
@@ -80,10 +81,13 @@ function Header({ pathname }: HeaderProps) {
 
   const updateExpandedHeight = useCallback(() => {
     const headerEl = headerRef.current;
+    const headerInnerEl = headerInnerRef.current;
     const panelEl = panelRef.current;
-    if (!headerEl || !panelEl || !isMobile || !isExpanded) return;
+    if (!headerEl || !headerInnerEl || !panelEl || !isMobile || !isExpanded) return;
 
-    const next = Math.ceil(headerEl.scrollHeight);
+    const headerInnerHeight = headerInnerEl.getBoundingClientRect().height;
+    const panelHeight = panelEl.getBoundingClientRect().height;
+    const next = Math.ceil(headerInnerHeight + panelHeight);
 
     setExpandedHeight(prev => (prev === next ? prev : next));
   }, [isExpanded, isMobile]);
@@ -105,6 +109,21 @@ function Header({ pathname }: HeaderProps) {
     observer.observe(panelRef.current);
 
     return () => observer.disconnect();
+  }, [isMobile, isExpanded, updateExpandedHeight]);
+
+  useEffect(() => {
+    const panelEl = panelRef.current;
+    if (!isMobile || !isExpanded || !panelEl) return;
+
+    const handleTransitionEnd = (event: TransitionEvent) => {
+      if (!(event.target instanceof HTMLElement)) return;
+      if (!panelEl.contains(event.target)) return;
+
+      updateExpandedHeight();
+    };
+
+    panelEl.addEventListener('transitionend', handleTransitionEnd);
+    return () => panelEl.removeEventListener('transitionend', handleTransitionEnd);
   }, [isMobile, isExpanded, updateExpandedHeight]);
 
   useEffect(() => {
@@ -139,7 +158,7 @@ function Header({ pathname }: HeaderProps) {
       className={`${styles.header} ${isMobile && isExpanded ? styles.isExpanded : ''}`}
       style={headerStyle}
     >
-      <div className={styles.headerInner}>
+      <div ref={headerInnerRef} className={styles.headerInner}>
         <div className={styles.homeBtn}>
           <Logo pathname={pathname} onClick={closeAll} text={TITLE} size={40} />
         </div>
