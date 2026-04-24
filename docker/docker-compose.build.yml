@@ -1,0 +1,18 @@
+name: explain-page-build
+
+services:
+  explain-page-build:
+    image: ${EXPLAIN_PAGE_IMAGE:-explain-page:local}
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: runner
+      args:
+        NEXT_PUBLIC_GATEWAY_BASE_URL: ${NEXT_PUBLIC_GATEWAY_BASE_URL:-https://gateway.example.com}
+        NEXT_PUBLIC_SSO_BASE_URL: ${NEXT_PUBLIC_SSO_BASE_URL:-https://gateway.example.com}
+        NEXT_PUBLIC_GATEWAY_AUTH_LOGIN_PAGE: ${NEXT_PUBLIC_GATEWAY_AUTH_LOGIN_PAGE:-explain}
+        NEXT_PUBLIC_START_FRONTEND_URL: ${NEXT_PUBLIC_START_FRONTEND_URL:-https://explain.example.com}
+        NEXT_PUBLIC_SSO_CONSUMER_CALLBACK_URL: ${NEXT_PUBLIC_SSO_CONSUMER_CALLBACK_URL:-https://explain.example.com/auth/callback}
+        NEXT_PUBLIC_TITLE: ${NEXT_PUBLIC_TITLE:-Frontend UI}
+        NEXT_PUBLIC_DESCRIPTION: ${NEXT_PUBLIC_DESCRIPTION:-Frontend UI service}
+        NEXT_PUBLIC_COPY: ${NEXT_PUBLIC_COPY:-© 2026 Frontend UI}

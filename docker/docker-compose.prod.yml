@@ -3,11 +3,7 @@ name: explain-page-prod
 services:
   explain-page-prod:
     container_name: explain-page-prod
-    image: explain-page:prod
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile
-      target: runner
+    image: ${EXPLAIN_PAGE_IMAGE:?EXPLAIN_PAGE_IMAGE is required}
     env_file:
       - ../.env.production
     environment:

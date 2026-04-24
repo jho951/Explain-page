@@ -24,7 +24,8 @@ EXPLAIN_PAGE_DEV_PORT=3001 ./scripts/run.docker.sh dev
 운영 형태 검증이 필요하면 `.env.production`을 준비한 뒤 아래를 실행합니다.
 
 ```bash
-./scripts/run.docker.sh prod
+EXPLAIN_PAGE_IMAGE=123456789012.dkr.ecr.ap-northeast-2.amazonaws.com/prod-explain-page:latest \
+./scripts/run.docker.sh prod up
 ```
 
 ## 문서 위치
@@ -82,10 +83,10 @@ EXPLAIN_PAGE_DEV_PORT=3001 ./scripts/run.docker.sh dev
 
 ### prod
 
-운영용 compose는 Next.js standalone build 결과를 실행합니다.
+운영용 compose는 미리 빌드된 Next.js standalone 이미지를 실행합니다.
 
 - compose 파일: `docker/docker-compose.prod.yml`
-- Docker target: `docker/Dockerfile`의 `runner`
+- 빌드 전용 compose 파일: `docker/docker-compose.build.yml`
 - env 파일: `.env.production`
 - 용도: 운영 배포와 유사한 런타임 검증
 
@@ -106,16 +107,22 @@ EXPLAIN_PAGE_DEV_PORT=3001 ./scripts/run.docker.sh dev
 
 ### `docker/docker-compose.prod.yml`
 
-- production runtime 이미지를 빌드합니다.
+- production runtime 이미지를 pull해서 실행합니다.
 - `.env.production`이 없으면 실행되지 않게 설계했습니다.
+
+### `docker/docker-compose.build.yml`
+
+- CI 또는 로컬 이미지 검증에서만 사용합니다.
+- `NEXT_PUBLIC_*` 값을 build arg로 주입해 standalone 이미지를 만듭니다.
 
 ### `scripts/run.docker.sh`
 
-모드에 따라 compose 파일과 env 파일을 자동 선택합니다.
+모드와 action에 따라 compose 파일과 env 파일을 자동 선택합니다.
 
 ```bash
-./scripts/run.docker.sh dev
-./scripts/run.docker.sh prod
+./scripts/run.docker.sh dev up
+./scripts/run.docker.sh prod up
+./scripts/run.docker.sh prod build
 ```
 
 지원하는 host port override:
@@ -168,14 +175,22 @@ EXPLAIN_PAGE_DEV_PORT=3001 ./scripts/run.docker.sh dev
 ### prod 실행
 
 ```bash
-./scripts/run.docker.sh prod
+EXPLAIN_PAGE_IMAGE=123456789012.dkr.ecr.ap-northeast-2.amazonaws.com/prod-explain-page:latest \
+./scripts/run.docker.sh prod up
+```
+
+### prod 이미지 로컬 빌드
+
+```bash
+EXPLAIN_PAGE_IMAGE=explain-page:local ./scripts/run.docker.sh prod build
 ```
 
 ### compose 직접 실행
 
 ```bash
 docker compose -f docker/docker-compose.dev.yml up --build
-docker compose -f docker/docker-compose.prod.yml up --build -d
+EXPLAIN_PAGE_IMAGE=explain-page:local docker compose -f docker/docker-compose.build.yml build
+EXPLAIN_PAGE_IMAGE=123456789012.dkr.ecr.ap-northeast-2.amazonaws.com/prod-explain-page:latest docker compose -f docker/docker-compose.prod.yml up -d
 ```
 
 ### 로컬 node 개발 서버 실행
@@ -188,7 +203,7 @@ docker compose -f docker/docker-compose.prod.yml up --build -d
 
 - 화면 개발과 API 연결 확인: `dev`
 - HMR이 필요할 때: `dev`
-- 운영 이미지 형태 검증: `prod`
+- 운영 이미지 형태 검증: `prod build` 후 `prod up`
 - Docker 없이 빠르게 코드만 확인: `run.local.sh`
 
 ## 현재 확인된 주의 사항
