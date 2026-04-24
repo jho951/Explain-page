@@ -1,8 +1,9 @@
 import { Locale } from '@/shared/types';
-import { ActiveLink } from '@/shared/ui';
 import Image from 'next/image';
+import { Link } from '@/shared/ui';
 
 import styles from './PortfolioLanding.module.css';
+import PortfolioLandingCta from './PortfolioLandingCta';
 
 interface PortfolioLandingProps {
   locale: Locale;
@@ -11,11 +12,9 @@ interface PortfolioLandingProps {
 const LANDING_COPY = {
   ko: {
     eyebrow: 'EXPLAIN PAGE',
-    brand: 'Explain Page',
-    title: '블록 문서 편집을 위한 최소 진입점',
+    title: '에디터 서비스',
     desc: 'Gateway를 단일 진입점으로 두고 로그인, 세션, 사용자 정보, 문서 API 흐름을 현재 서버 계약에 맞춰 연결합니다.',
-    primaryCta: '로그인',
-    secondaryCta: '정책 보기',
+    primaryCta: '시작하기',
     badges: ['Gateway :8080', 'Cookie session', 'Block document'],
     serviceTitle: '현재 연결 기준',
     serviceKicker: 'SERVICE MAP',
@@ -28,28 +27,35 @@ const LANDING_COPY = {
       { name: 'redis-service', role: 'Session' },
       { name: 'monitoring-service', role: 'Metrics' },
     ],
-    endpointTitle: 'Gateway 공개 엔드포인트',
-    endpointKicker: 'PUBLIC API',
-    endpoints: [
-      '/v1/auth/sso/start',
-      '/v1/auth/exchange',
-      '/v1/auth/me',
-      '/v1/auth/session',
-      '/v1/auth/refresh',
-      '/v1/auth/logout',
-      '/v1/users/me',
-      '/v1/documents/**',
-      '/v1/editor-operations/**',
-      '/v1/admin/**',
+    repoTitle: '레포지토리',
+    repoKicker: 'REPOSITORIES',
+    repositories: [
+      {
+        title: '1. 서비스 레포',
+        links: [
+          'https://github.com/jho951/service-gateway',
+          'https://github.com/jho951/service-redis',
+          'https://github.com/jho951/service-user',
+          'https://github.com/jho951/service-auth',
+          'https://github.com/jho951/service-authz',
+          'https://github.com/jho951/service-editor',
+        ],
+      },
+      {
+        title: '2. 프론트 페이지 레포',
+        links: ['https://github.com/jho951/page-explain', 'https://github.com/jho951/page-editor'],
+      },
+      {
+        title: '3. 계약 레포',
+        links: ['https://github.com/jho951/contract-service'],
+      },
     ],
   },
   en: {
     eyebrow: 'EXPLAIN PAGE',
-    brand: 'Explain Page',
     title: 'A minimal entry point for block document editing',
     desc: 'Gateway stays as the single entry point while login, session, user state, and document APIs follow the current server contract.',
-    primaryCta: 'Sign in',
-    secondaryCta: 'Policies',
+    primaryCta: 'Get started',
     badges: ['Gateway :8080', 'Cookie session', 'Block document'],
     serviceTitle: 'Current service baseline',
     serviceKicker: 'SERVICE MAP',
@@ -62,37 +68,44 @@ const LANDING_COPY = {
       { name: 'redis-service', role: 'Session' },
       { name: 'monitoring-service', role: 'Metrics' },
     ],
-    endpointTitle: 'Gateway public endpoints',
-    endpointKicker: 'PUBLIC API',
-    endpoints: [
-      '/v1/auth/sso/start',
-      '/v1/auth/exchange',
-      '/v1/auth/me',
-      '/v1/auth/session',
-      '/v1/auth/refresh',
-      '/v1/auth/logout',
-      '/v1/users/me',
-      '/v1/documents/**',
-      '/v1/editor-operations/**',
-      '/v1/admin/**',
+    repoTitle: 'Repositories',
+    repoKicker: 'REPOSITORIES',
+    repositories: [
+      {
+        title: '1. Service repos',
+        links: [
+          'https://github.com/jho951/service-gateway',
+          'https://github.com/jho951/service-redis',
+          'https://github.com/jho951/service-user',
+          'https://github.com/jho951/service-auth',
+          'https://github.com/jho951/service-authz',
+          'https://github.com/jho951/service-editor',
+        ],
+      },
+      {
+        title: '2. Frontend page repos',
+        links: ['https://github.com/jho951/page-explain', 'https://github.com/jho951/page-editor'],
+      },
+      {
+        title: '3. Contract repos',
+        links: ['https://github.com/jho951/contract-service'],
+      },
     ],
   },
 } satisfies Record<
   Locale,
   {
     eyebrow: string;
-    brand: string;
     title: string;
     desc: string;
     primaryCta: string;
-    secondaryCta: string;
     badges: string[];
     serviceTitle: string;
     serviceKicker: string;
     services: { name: string; role: string }[];
-    endpointTitle: string;
-    endpointKicker: string;
-    endpoints: string[];
+    repoTitle: string;
+    repoKicker: string;
+    repositories: { title: string; links: string[] }[];
   }
 >;
 
@@ -104,19 +117,10 @@ export default function PortfolioLanding({ locale }: PortfolioLandingProps) {
       <main className={styles.main}>
         <section className={styles.hero} aria-labelledby="home-title">
           <div className={styles.heroCopy}>
-            <div className={styles.brandRow}>
-              <Image
-                src="/icons/logo.svg"
-                alt=""
-                width={44}
-                height={44}
-                className={styles.logoMark}
-                priority
-              />
-              <span>{copy.brand}</span>
-            </div>
             <p className={styles.eyebrow}>{copy.eyebrow}</p>
-            <h1 id="home-title">{copy.title}</h1>
+            <p id="home-title" className={styles.heroTitle}>
+              {copy.title}
+            </p>
             <p className={styles.description}>{copy.desc}</p>
             <ul className={styles.badgeList}>
               {copy.badges.map(badge => (
@@ -124,12 +128,11 @@ export default function PortfolioLanding({ locale }: PortfolioLandingProps) {
               ))}
             </ul>
             <div className={styles.actions}>
-              <ActiveLink href="/signin" className={styles.primaryAction}>
-                {copy.primaryCta}
-              </ActiveLink>
-              <ActiveLink href="/legal/terms" className={styles.secondaryAction}>
-                {copy.secondaryCta}
-              </ActiveLink>
+              <PortfolioLandingCta
+                className={styles.primaryAction}
+                locale={locale}
+                label={copy.primaryCta}
+              />
             </div>
           </div>
 
@@ -163,8 +166,8 @@ export default function PortfolioLanding({ locale }: PortfolioLandingProps) {
             <div className={styles.endpointPanel}>
               <div className={styles.endpointHeader}>
                 <div>
-                  <p>{copy.endpointKicker}</p>
-                  <h2>{copy.endpointTitle}</h2>
+                  <p>{copy.repoKicker}</p>
+                  <h2>{copy.repoTitle}</h2>
                 </div>
                 <Image
                   src="/icons/sync.svg"
@@ -174,11 +177,22 @@ export default function PortfolioLanding({ locale }: PortfolioLandingProps) {
                   className={styles.panelIcon}
                 />
               </div>
-              <ul className={styles.endpointList}>
-                {copy.endpoints.map(endpoint => (
-                  <li key={endpoint}>{endpoint}</li>
+              <div className={styles.repoGroups}>
+                {copy.repositories.map(group => (
+                  <section key={group.title} className={styles.repoGroup}>
+                    <h3 className={styles.repoGroupTitle}>{group.title}</h3>
+                    <ul className={styles.endpointList}>
+                      {group.links.map(link => (
+                        <li key={link}>
+                          <Link className={styles.repoLink} href={link}>
+                            {link}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
                 ))}
-              </ul>
+              </div>
             </div>
           </div>
         </section>

@@ -6,9 +6,24 @@ export const COMMUNITY: NavigationTreeLink = {
   href: '/community',
   label: 'Community',
   children: [
-    { id: 'linkedIn', label: 'Linked In', href: 'https://www.linkedin.com/company/yourcompany' },
-    { id: 'slack', label: 'Slack', href: 'https://yourdomain.slack.com' },
-    { id: 'discord', label: 'Discord', href: 'https://discord.gg/2TFw8rZD' },
+    {
+      id: 'linkedIn',
+      label: 'Linked In',
+      href: 'https://www.linkedin.com/in/%EC%9E%A5%ED%98%B8-%EC%9D%B4-7101a9370',
+      target: '_blank',
+    },
+    {
+      id: 'slack',
+      label: 'Slack',
+      href: 'https://join.slack.com/t/jho-tpk9387/shared_invite/zt-3w7d23unm-oCkaySg2IYDPHj2jeyaxqQ',
+      target: '_blank',
+    },
+    {
+      id: 'discord',
+      label: 'Discord',
+      href: 'https://discord.gg/6E5Sqnzc',
+      target: '_blank',
+    },
   ],
 };
 
@@ -86,28 +101,74 @@ export const ABOUT: NavigationTreeLink = {
   children: [
     { id: 'service', label: 'Service', href: '/service' },
     { id: 'brand', label: 'Brand Assets', href: '/brand' },
-    { id: 'careers', label: 'Careers', href: '/careers', target: '_blank' },
   ],
 };
 
 /**
  * 푸터 sns_link
  */
-export const SNS_LINK: NavigationSocialLink[] = [
-  {
-    id: 'Git',
-    href: 'https://github.com/jho951',
-    icon: 'git',
-    external: true,
-  },
-];
+export const SNS_LINK: NavigationSocialLink[] = [];
 
 export const GNB: NavigationTreeLink[] = [
-  { id: 'about', href: '/about', label: 'about', children: [] },
-  { id: 'community', href: '/community', label: 'community', children: [] },
-  { id: 'legal', href: '/legal', label: 'legal', children: [] },
-  { id: 'support', href: '/support', label: 'support', children: [] },
-  { id: 'download', href: '/download', label: 'download', children: [] },
+  {
+    id: 'gnb-about',
+    href: '/about',
+    label: 'About',
+    children: [
+      { id: 'gnb-service', label: 'Service', href: '/service' },
+      { id: 'gnb-brand', label: 'Brand Assets', href: '/brand' },
+    ],
+  },
+  {
+    id: 'gnb-community',
+    href: '/community',
+    label: 'Community',
+    children: [
+      {
+        id: 'gnb-linkedIn',
+        label: 'Linked In',
+        href: 'https://www.linkedin.com/in/%EC%9E%A5%ED%98%B8-%EC%9D%B4-7101a9370',
+        target: '_blank',
+      },
+      {
+        id: 'gnb-slack',
+        label: 'Slack',
+        href: 'https://join.slack.com/t/jho-tpk9387/shared_invite/zt-3w7d23unm-oCkaySg2IYDPHj2jeyaxqQ',
+        target: '_blank',
+      },
+      {
+        id: 'gnb-discord',
+        label: 'Discord',
+        href: 'https://discord.gg/6E5Sqnzc',
+        target: '_blank',
+      },
+    ],
+  },
+  {
+    id: 'gnb-legal',
+    href: '/legal',
+    label: 'Legal',
+    children: [
+      { id: 'gnb-privacy', label: 'Privacy', href: '/legal/privacy' },
+      { id: 'gnb-terms', label: 'Terms', href: '/legal/terms' },
+      { id: 'gnb-secure', label: 'Security', href: '/legal/security' },
+      { id: 'gnb-esg', label: 'ESG', href: '/legal/esg' },
+      {
+        id: 'gnb-responsible',
+        label: 'Responsible Disclosure',
+        href: '/legal/responsible-disclosure',
+      },
+    ],
+  },
+  {
+    id: 'gnb-support',
+    href: '/support',
+    label: 'Support',
+    children: [
+      { id: 'gnb-contact', label: 'Contact', href: 'mailto:jho951@naver.com' },
+      { id: 'gnb-faq', label: 'FAQ', href: '/community/faq' },
+    ],
+  },
 ];
 
 export const FNB: NavigationTreeLink[] = [ABOUT, COMMUNITY, LEGAL, SUPPORT];

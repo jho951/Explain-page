@@ -3,5 +3,5 @@
 }
 
 .withHeaderOffset {
-  padding-top: var(--header-offset);
+  padding-top: calc(var(--header-offset) - 1.6rem);
 }

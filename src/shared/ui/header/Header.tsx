@@ -9,7 +9,7 @@ import {
   type CSSProperties,
 } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button, Icon, type MenuItem } from '@jho951/ui-components';
+import { Button, Icon } from '@jho951/ui-components';
 
 import { GNB } from '@/shared/config';
 import { TITLE } from '@/shared/config';
@@ -43,11 +43,11 @@ function Header({ pathname }: HeaderProps) {
   const canLogout = isGatewayLogoutConfigured();
   const showLogout = isAuthenticated;
 
-  const closeAll = () => {
+  const closeAll = useCallback(() => {
     setIsExpanded(false);
     setOpenCategoryId(null);
     setDesktopOpenIndex(null);
-  };
+  }, []);
 
   const isExternalHref = (href: string, target?: string) =>
     target === '_blank' ||
@@ -78,20 +78,11 @@ function Header({ pathname }: HeaderProps) {
     }
   };
 
-  const getMenuItems = (idx: number): MenuItem[] =>
-    (GNB[idx]?.children ?? []).map(item => ({
-      id: item.id,
-      label: item.label,
-      onSelect: () => navigate(item.href, item.target),
-    }));
-
   const updateExpandedHeight = useCallback(() => {
     const headerEl = headerRef.current;
     const panelEl = panelRef.current;
     if (!headerEl || !panelEl || !isMobile || !isExpanded) return;
 
-    // Use the rendered header scrollHeight so mobile dropdown height always
-    // follows the actual content (open categories, auth actions, spacing).
     const next = Math.ceil(headerEl.scrollHeight);
 
     setExpandedHeight(prev => (prev === next ? prev : next));
@@ -116,6 +107,27 @@ function Header({ pathname }: HeaderProps) {
     return () => observer.disconnect();
   }, [isMobile, isExpanded, updateExpandedHeight]);
 
+  useEffect(() => {
+    if (desktopOpenIndex === null) return;
+
+    const handlePointerDown = (event: PointerEvent) => {
+      if (headerRef.current?.contains(event.target as Node)) return;
+      setDesktopOpenIndex(null);
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setDesktopOpenIndex(null);
+    };
+
+    window.addEventListener('pointerdown', handlePointerDown);
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('pointerdown', handlePointerDown);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [desktopOpenIndex]);
+
   const headerStyle: CSSProperties | undefined =
     isMobile && expandedHeight
       ? ({ '--header-expanded-h': `${expandedHeight}px` } as CSSProperties)
@@ -133,12 +145,20 @@ function Header({ pathname }: HeaderProps) {
         </div>
 
         {!isMobile && (
-          <HeaderDesktopNav
-            desktopOpenIndex={desktopOpenIndex}
-            getMenuItems={getMenuItems}
-            onCloseMenu={() => setDesktopOpenIndex(null)}
-            onToggleMenu={index => setDesktopOpenIndex(prev => (prev === index ? null : index))}
-          />
+          <nav className={styles.desktopNav} aria-label="global navigation">
+            {GNB.map((menu, index) => (
+              <HeaderDesktopNav
+                key={menu.id}
+                menu={menu}
+                index={index}
+                desktopOpenIndex={desktopOpenIndex}
+                onNavigate={navigate}
+                onToggleMenu={nextIndex =>
+                  setDesktopOpenIndex(prev => (prev === nextIndex ? null : nextIndex))
+                }
+              />
+            ))}
+          </nav>
         )}
 
         <nav className={styles.gnbBtn} aria-label="Header actions">

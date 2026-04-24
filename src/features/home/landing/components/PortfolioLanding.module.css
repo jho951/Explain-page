@@ -1,14 +1,6 @@
 .page {
   min-height: 100%;
   color: #141414;
-  background:
-    linear-gradient(90deg, rgba(20, 184, 166, 0.1) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(20, 184, 166, 0.1) 1px, transparent 1px),
-    linear-gradient(180deg, #f4f7f8 0%, #ffffff 42%, #f6f7f4 100%);
-  background-size:
-    36px 36px,
-    36px 36px,
-    auto;
 }
 
 .main {
@@ -35,7 +27,6 @@
 
 .heroCopy {
   display: flex;
-  min-height: 560px;
   flex-direction: column;
   padding: 28px;
 }
@@ -50,24 +41,8 @@
   content: '';
 }
 
-.brandRow {
-  display: inline-flex;
-  width: fit-content;
-  align-items: center;
-  gap: 11px;
-  color: #24292f;
-  font-size: 14px;
-  font-weight: 800;
-}
-
-.logoMark {
-  display: block;
-  width: 44px;
-  height: 44px;
-}
-
 .eyebrow {
-  margin: auto 0 14px;
+  margin: 0 0 14px;
   color: #0f766e;
   font-size: 12px;
   font-weight: 800;
@@ -75,17 +50,18 @@
   text-transform: uppercase;
 }
 
-.heroCopy h1,
+.heroTitle,
 .summary h2 {
   margin: 0;
   color: #111111;
   letter-spacing: 0;
 }
 
-.heroCopy h1 {
+.heroTitle {
   max-width: 13ch;
-  font-size: 42px;
+  font-size: 1.8rem;
   line-height: 1.04;
+  font-weight: 800;
 }
 
 .description {
@@ -132,8 +108,10 @@
   padding: 0 18px;
   border: 1px solid #111111;
   border-radius: 8px;
+  cursor: pointer;
   font-size: 14px;
   font-weight: 800;
+  font-family: inherit;
   text-decoration: none;
   transition:
     border-color 160ms ease,
@@ -143,6 +121,7 @@
 }
 
 .primaryAction {
+  appearance: none;
   background: #111111;
   color: #ffffff;
 }
@@ -269,6 +248,23 @@
   padding: 16px;
 }
 
+.repoGroups {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.repoGroup {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.repoGroupTitle {
+  margin: 0;
+  color: #1f2933;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
 .endpointList li {
   overflow-wrap: anywhere;
   border-left: 3px solid #14b8a6;
@@ -279,6 +275,16 @@
   font-family: var(--font-geist-mono, 'SFMono-Regular', Consolas, monospace);
   font-size: 12px;
   line-height: 1.45;
+}
+
+.repoLink {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.repoLink:hover {
+  color: #0f766e;
 }
 
 .endpointList li:nth-child(3n + 2) {
@@ -294,16 +300,8 @@
     padding: 74px 24px;
   }
 
-  .hero {
-    grid-template-columns: minmax(0, 1fr) minmax(340px, 0.86fr);
-  }
-
   .heroCopy {
     padding: 40px;
-  }
-
-  .heroCopy h1 {
-    font-size: 56px;
   }
 
   .summary {
@@ -314,9 +312,5 @@
 @media (min-width: 1024px) {
   .main {
     padding: 94px 32px;
-  }
-
-  .heroCopy h1 {
-    font-size: 66px;
   }
 }

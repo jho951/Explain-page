@@ -68,6 +68,8 @@
   font-size: var(--header-font);
   border-radius: 999px;
   padding: 0.55rem 0.95rem;
+  font-weight: 800;
+  text-transform: capitalize;
 }
 
 .navTrigger:hover {
@@ -78,11 +80,81 @@
   position: absolute;
   top: calc(100% + 0.7rem);
   left: 0;
-  min-width: 220px;
-  border-radius: 1.2rem;
+  min-width: 240px;
+}
+
+.menuPanel {
+  position: relative;
   overflow: hidden;
-  background: var(--color-white);
-  box-shadow: var(--base-shadow);
+  padding: 1.4rem;
+  border: 1px solid rgba(var(--color-black-rgb), 0.08);
+  border-radius: 1.6rem;
+  background: linear-gradient(
+    to bottom,
+    rgba(var(--color-white-rgb), 0.98),
+    rgba(var(--color-bg-gray-rgb), 0.95)
+  );
+  backdrop-filter: blur(calc(var(--base-blur) * 0.8));
+  -webkit-backdrop-filter: blur(calc(var(--base-blur) * 0.8));
+  box-shadow: 0 24px 60px rgba(var(--color-black-rgb), 0.14);
+}
+
+.menuPanel::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 0.5rem;
+  background: linear-gradient(90deg, #14b8a6 0%, #f59e0b 48%, #ef4444 100%);
+  content: '';
+}
+
+.menuEyebrow {
+  margin: 0 0 1.2rem;
+  color: #0f766e;
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.menuPanelList {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menuPanelLink {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.2rem;
+  border: 1px solid transparent;
+  border-radius: 1rem;
+  background: rgba(var(--color-white-rgb), 0.78);
+  color: var(--color-text);
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: left;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.menuPanelLink:hover {
+  transform: translateY(-1px);
+  border-color: rgba(var(--color-primary-rgb), 0.2);
+  background: rgba(var(--color-primary-rgb), 0.08);
+  color: #0f766e;
+}
+
+.menuPanelLink span {
+  min-width: 0;
 }
 
 .gnbBtn {

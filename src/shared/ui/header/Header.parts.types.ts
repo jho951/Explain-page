@@ -1,6 +1,5 @@
-import type { MenuItem } from '@jho951/ui-components';
 import type { RefObject } from 'react';
-import type { Locale } from '@/shared/types';
+import type { Locale, NavigationTreeLink } from '@/shared/types';
 
 interface HeaderAuthActionsProps {
   mobile?: boolean;
@@ -24,10 +23,11 @@ interface HeaderMobileMenuProps {
 }
 
 interface HeaderDesktopNavProps {
+  menu: NavigationTreeLink;
+  index: number;
   desktopOpenIndex: number | null;
   onToggleMenu: (index: number) => void;
-  onCloseMenu: () => void;
-  getMenuItems: (index: number) => MenuItem[];
+  onNavigate: (href: string, target?: string) => void;
 }
 
 export type { HeaderAuthActionsProps, HeaderDesktopNavProps, HeaderMobileMenuProps };

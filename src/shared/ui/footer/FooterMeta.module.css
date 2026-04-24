@@ -24,7 +24,7 @@
 
 .globe {
   position: absolute;
-  left: 1rem;
+  left: 1.2rem;
   pointer-events: none;
   z-index: 1;
 }
@@ -38,8 +38,12 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   background-image: none;
-  padding-left: 2.8rem;
-  padding-right: 2.8rem;
+  padding-left: 3.4rem;
+  padding-right: 1.2rem;
+}
+
+.localeSelect :global(span[aria-hidden='true']) {
+  display: none;
 }
 
 .languageText {
@@ -56,12 +60,18 @@
 
 @media (max-width: 768px) {
   .bottom {
-    flex-direction: column-reverse;
-    align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     gap: 1rem;
   }
 
   .languageAndIcons {
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+
+  .icons {
     justify-content: flex-start;
   }
 }
