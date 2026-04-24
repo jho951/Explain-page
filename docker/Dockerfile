@@ -13,11 +13,11 @@ ENV HOSTNAME=0.0.0.0
 CMD ["npm", "run", "dev", "--", "--hostname", "0.0.0.0", "--port", "3000"]
 
 FROM base AS builder
-ARG NEXT_PUBLIC_GATEWAY_BASE_URL=https://gateway.example.com
-ARG NEXT_PUBLIC_SSO_BASE_URL=https://gateway.example.com
+ARG NEXT_PUBLIC_GATEWAY_BASE_URL=https://api.myeditor.n-e.kr
+ARG NEXT_PUBLIC_SSO_BASE_URL=https://api.myeditor.n-e.kr
 ARG NEXT_PUBLIC_GATEWAY_AUTH_LOGIN_PAGE=explain
-ARG NEXT_PUBLIC_START_FRONTEND_URL=https://explain.example.com
-ARG NEXT_PUBLIC_SSO_CONSUMER_CALLBACK_URL=https://explain.example.com/auth/callback
+ARG NEXT_PUBLIC_START_FRONTEND_URL=https://myeditor.n-e.kr
+ARG NEXT_PUBLIC_SSO_CONSUMER_CALLBACK_URL=https://myeditor.n-e.kr/auth/callback
 ARG NEXT_PUBLIC_TITLE=Frontend UI
 ARG NEXT_PUBLIC_DESCRIPTION=Frontend UI service
 ARG NEXT_PUBLIC_COPY=© 2026 Frontend UI
