@@ -2,10 +2,11 @@
 
 이 저장소는 `gateway-service`를 브라우저의 단일 진입점으로 사용하는 Next.js 프론트엔드입니다.
 
-현재 구조의 핵심은 아래 두 가지입니다.
+현재 구조의 핵심은 아래 세 가지입니다.
 
 - 인증과 세션은 Gateway/Auth Service가 발급하는 cookie 기반으로 동작합니다.
 - Docker 실행 경로는 `dev`와 `prod`로 분리되어 있으며, 목적에 따라 다른 compose 파일과 env 파일을 사용합니다.
+- EC2 운영 서버는 앱 레포를 clone하지 않고, 배포용 compose/env/nginx 번들만 받아 이미지를 실행합니다.
 
 ## 빠른 시작
 
@@ -21,7 +22,7 @@
 EXPLAIN_PAGE_DEV_PORT=3001 ./scripts/run.docker.sh dev
 ```
 
-운영 형태 검증이 필요하면 `.env.production`을 준비한 뒤 아래를 실행합니다.
+운영 형태를 로컬에서 검증하려면 `.env.production`을 준비한 뒤 아래를 실행합니다.
 
 ```bash
 EXPLAIN_PAGE_IMAGE=123456789012.dkr.ecr.ap-northeast-2.amazonaws.com/prod-explain-page:latest \
@@ -88,7 +89,16 @@ EXPLAIN_PAGE_IMAGE=123456789012.dkr.ecr.ap-northeast-2.amazonaws.com/prod-explai
 - compose 파일: `docker/docker-compose.prod.yml`
 - 빌드 전용 compose 파일: `docker/docker-compose.build.yml`
 - env 파일: `.env.production`
-- 용도: 운영 배포와 유사한 런타임 검증
+- 용도: 저장소 내부에서 production runtime 형태를 로컬 검증
+
+### EC2 배포 번들
+
+EC2 운영 서버는 앱 레포를 clone하지 않고 `deploy/ec2` 번들만 사용합니다.
+
+- compose 파일: `deploy/ec2/docker-compose.yml`
+- env 파일: `deploy/ec2/.env`
+- nginx 설정: `deploy/ec2/nginx/default.conf`
+- 용도: ECR 이미지를 pull해서 EC2에서 실행
 
 ## Docker 파일 역할
 
@@ -109,11 +119,18 @@ EXPLAIN_PAGE_IMAGE=123456789012.dkr.ecr.ap-northeast-2.amazonaws.com/prod-explai
 
 - production runtime 이미지를 pull해서 실행합니다.
 - `.env.production`이 없으면 실행되지 않게 설계했습니다.
+- 이 compose는 저장소 내부 local prod 검증용입니다.
 
 ### `docker/docker-compose.build.yml`
 
 - CI 또는 로컬 이미지 검증에서만 사용합니다.
 - `NEXT_PUBLIC_*` 값을 build arg로 주입해 standalone 이미지를 만듭니다.
+
+### `deploy/ec2/docker-compose.yml`
+
+- EC2에서 앱 레포 없이 실행하는 배포용 compose입니다.
+- Nginx 컨테이너가 앞단에서 80 포트를 받고 Next.js 앱 컨테이너로 reverse proxy 합니다.
+- 실행 대상은 build가 끝난 ECR 이미지입니다.
 
 ### `scripts/run.docker.sh`
 
@@ -158,6 +175,22 @@ cp .env.production.example .env.production
 - `NEXT_PUBLIC_START_FRONTEND_URL`
 - `NEXT_PUBLIC_SSO_CONSUMER_CALLBACK_URL`
 
+### EC2 배포용 `deploy/ec2/.env`
+
+EC2에서는 이 레포 전체를 두지 않고 `deploy/ec2` 디렉터리만 업로드합니다.
+
+```bash
+cp deploy/ec2/.env.example deploy/ec2/.env
+```
+
+필수 값:
+
+- `EXPLAIN_PAGE_IMAGE`
+- `EXPLAIN_PAGE_HTTP_PORT`
+- `NEXT_PUBLIC_GATEWAY_BASE_URL`
+- `NEXT_PUBLIC_START_FRONTEND_URL`
+- `NEXT_PUBLIC_SSO_CONSUMER_CALLBACK_URL`
+
 ## 자주 쓰는 명령
 
 ### dev 실행
@@ -185,6 +218,16 @@ EXPLAIN_PAGE_IMAGE=123456789012.dkr.ecr.ap-northeast-2.amazonaws.com/prod-explai
 EXPLAIN_PAGE_IMAGE=explain-page:local ./scripts/run.docker.sh prod build
 ```
 
+### EC2 배포 번들 실행
+
+```bash
+cd deploy/ec2
+cp .env.example .env
+docker compose pull
+docker compose up -d
+docker compose ps
+```
+
 ### compose 직접 실행
 
 ```bash
@@ -204,6 +247,7 @@ EXPLAIN_PAGE_IMAGE=123456789012.dkr.ecr.ap-northeast-2.amazonaws.com/prod-explai
 - 화면 개발과 API 연결 확인: `dev`
 - HMR이 필요할 때: `dev`
 - 운영 이미지 형태 검증: `prod build` 후 `prod up`
+- EC2 실제 배포: `deploy/ec2` 번들만 업로드해서 `docker compose pull && up -d`
 - Docker 없이 빠르게 코드만 확인: `run.local.sh`
 
 ## 현재 확인된 주의 사항

@@ -9,6 +9,7 @@
 - 새로 합류한 사람이 로컬/운영 실행 조건을 빠르게 이해할 수 있어야 한다.
 - 프론트가 어떤 Gateway 계약 위에서 동작하는지 명확해야 한다.
 - Docker dev/prod 모드의 차이를 실행 전에 이해할 수 있어야 한다.
+- EC2 운영 서버가 소스 checkout 없이 어떤 배포 번들만으로 실행되는지 이해할 수 있어야 한다.
 
 ## 제품/런타임 가정
 
@@ -70,6 +71,17 @@
 - 컨테이너는 standalone production runtime을 실행한다.
 - host port 기본값은 `3000`이다.
 - 필요하면 `EXPLAIN_PAGE_PROD_PORT`로 host port를 바꿀 수 있다.
+- 이 경로는 저장소 내부에서 local production shape를 검증하는 용도다.
+
+### EC2 운영 배포 모드
+
+- EC2에는 앱 저장소 전체를 clone하지 않는다.
+- EC2에는 배포용 compose, env, nginx 설정만 둔다.
+- 배포용 compose 파일은 `deploy/ec2/docker-compose.yml`이다.
+- 배포용 env 파일은 `deploy/ec2/.env`다.
+- Nginx 설정 파일은 `deploy/ec2/nginx/default.conf`다.
+- EC2는 미리 빌드된 ECR 이미지를 pull해서 실행한다.
+- Nginx가 80 포트를 받고 앱 컨테이너의 3000 포트로 reverse proxy 한다.
 
 ## 환경 변수 요구사항
 
@@ -78,6 +90,11 @@
 - `NEXT_PUBLIC_GATEWAY_BASE_URL`
 - `NEXT_PUBLIC_START_FRONTEND_URL`
 - `NEXT_PUBLIC_SSO_CONSUMER_CALLBACK_URL`
+
+### EC2 배포 필수 변수
+
+- `EXPLAIN_PAGE_IMAGE`
+- `EXPLAIN_PAGE_HTTP_PORT`
 
 ### 하위 호환 변수
 
@@ -93,8 +110,9 @@
 
 1. 개발 편의성과 운영 런타임을 동일한 compose 경로에 섞지 않는다.
 2. `dev`는 빠른 수정과 HMR을 우선한다.
-3. `prod`는 실제 배포와 유사한 standalone runtime을 우선한다.
+3. 저장소 내부 `prod`는 실제 배포와 유사한 standalone runtime 검증을 우선한다.
 4. 운영 env 파일이 없으면 `prod`는 실행되지 않아야 한다.
+5. EC2 운영 서버는 소스 checkout 없이 배포 번들만으로 실행 가능해야 한다.
 
 ## 문서 유지 원칙
 
@@ -103,5 +121,6 @@
 - Gateway 공개 경로
 - 인증 흐름
 - Docker 실행 모드
+- EC2 배포 번들 구조
 - 필수 env 변수
 - host port 정책

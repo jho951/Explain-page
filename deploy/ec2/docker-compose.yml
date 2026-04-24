@@ -1,0 +1,33 @@
+name: explain-page-ec2
+
+services:
+  explain-page:
+    container_name: explain-page-app
+    image: ${EXPLAIN_PAGE_IMAGE:?EXPLAIN_PAGE_IMAGE is required}
+    env_file:
+      - ./.env
+    environment:
+      NODE_ENV: production
+      HOSTNAME: 0.0.0.0
+      PORT: 3000
+    expose:
+      - "3000"
+    restart: unless-stopped
+    networks:
+      - explain-page-network
+
+  nginx:
+    container_name: explain-page-nginx
+    image: nginx:1.27-alpine
+    depends_on:
+      - explain-page
+    ports:
+      - "${EXPLAIN_PAGE_HTTP_PORT:-80}:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: unless-stopped
+    networks:
+      - explain-page-network
+
+networks:
+  explain-page-network:

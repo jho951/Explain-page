@@ -52,6 +52,30 @@ cp .env.production.example .env.production
 
 그 다음 실제 운영 도메인 값으로 수정한다.
 
+## 2-1. EC2 배포 번들이 실행되지 않을 때
+
+### 대표 원인
+
+- `deploy/ec2/.env`가 없다.
+- `EXPLAIN_PAGE_IMAGE`가 비어 있다.
+- EC2가 ECR 이미지를 pull할 권한이 없다.
+
+### 확인 순서
+
+```bash
+cd deploy/ec2
+ls -la
+cat .env
+docker compose config
+docker compose pull
+```
+
+### 기대 결과
+
+- `docker-compose.yml`, `.env`, `nginx/default.conf`가 존재한다.
+- `EXPLAIN_PAGE_IMAGE`가 실제 ECR 이미지로 채워져 있다.
+- `docker compose pull`이 성공한다.
+
 ## 3. 포트 충돌이 날 때
 
 ### 대표 메시지
@@ -177,7 +201,20 @@ docker restart explain-page-dev
 1. `.env.production.example`을 복사해 `.env.production` 생성
 2. 실제 도메인 또는 테스트용 도메인 값 반영
 3. `./scripts/run.docker.sh prod`
-4. 로그와 포트 상태 확인
+
+## 8-1. EC2에서 실제 배포를 확인하고 싶을 때
+
+### 권장 순서
+
+1. `deploy/ec2` 디렉터리만 EC2에 업로드
+2. `.env.example`을 `.env`로 복사
+3. `EXPLAIN_PAGE_IMAGE`를 실제 ECR 태그로 수정
+4. `docker compose pull`
+5. `docker compose up -d`
+6. `docker compose ps`
+7. `docker logs --tail 100 explain-page-app`
+8. `docker logs --tail 100 explain-page-nginx`
+9. 로그와 포트 상태 확인
 
 ## 9. 추천 확인 명령 모음
 
@@ -190,4 +227,8 @@ docker compose -f docker/docker-compose.prod.yml ps
 docker logs --tail 100 explain-page-dev
 docker logs --tail 100 explain-page-prod
 lsof -nP -iTCP:3000 -sTCP:LISTEN
+cd deploy/ec2 && docker compose ps
+cd deploy/ec2 && docker compose pull
+cd deploy/ec2 && docker logs --tail 100 explain-page-app
+cd deploy/ec2 && docker logs --tail 100 explain-page-nginx
 ```
