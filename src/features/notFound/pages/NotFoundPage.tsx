@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 
 import { NotFoundTiles } from '@/features';
 import { DEFAULT_LOCALE } from '@/shared/config';
+import { PageChromeController } from '@/shared/providers';
 import { Link } from '@/shared/ui';
 import { resolveLocaleFromPathname } from '@/shared/utils';
 import styles from '@/features/notFound/pages/NotFoundPage.module.css';
@@ -16,15 +17,18 @@ function NotFound() {
   const homeHref = locale === DEFAULT_LOCALE ? '/' : `/${locale}`;
 
   return (
-    <div className={styles.notFoundContainer} data-page-kind="not-found">
-      <h1 className={styles.notFoundTitle}>{title}</h1>
-      <section className={styles.notFoundTileWrapper}>
-        <NotFoundTiles />
-      </section>
-      <Link className={styles.homeLink} href={homeHref}>
-        {homeLabel}
-      </Link>
-    </div>
+    <>
+      <PageChromeController hideFooter />
+      <div className={styles.notFoundContainer}>
+        <h1 className={styles.notFoundTitle}>{title}</h1>
+        <section className={styles.notFoundTileWrapper}>
+          <NotFoundTiles />
+        </section>
+        <Link className={styles.homeLink} href={homeHref}>
+          {homeLabel}
+        </Link>
+      </div>
+    </>
   );
 }
 export default NotFound;

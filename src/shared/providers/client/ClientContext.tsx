@@ -1,6 +1,5 @@
 'use client';
 
-import { useLayoutEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 
@@ -9,10 +8,9 @@ import { Header, Footer } from '@/shared/ui/layout';
 import { FOOTER_EXCLUDED_PATHS, HEADER_EXCLUDED_PATHS } from '@/shared/config';
 import type { ClientLayoutProviderProps } from './ClientContext.types';
 import { normalizePath } from '@/shared/utils';
+import { PageChromeProvider, usePageChrome } from './PageChromeContext';
 
 import styles from '@/shared/providers/client/ClientContext.module.css';
-
-const NOT_FOUND_PAGE_MARKER = '[data-page-kind="not-found"]';
 
 const stripLocalePrefix = (pathname: string) => {
   const normalized = normalizePath(pathname);
@@ -32,31 +30,13 @@ const isExcludedPath = (pathname: string, excludedPaths: string[]) => {
   return excludedPaths.some(path => normalized === path || normalized.startsWith(`${path}/`));
 };
 
-function ClientProvider({ children, modal }: ClientLayoutProviderProps) {
+function ClientProviderContent({ children, modal }: ClientLayoutProviderProps) {
   const pathname = usePathname() ?? '/';
   const strippedPathname = stripLocalePrefix(pathname);
-  const [isNotFoundPage, setIsNotFoundPage] = useState(false);
+  const { chrome } = usePageChrome();
 
-  useLayoutEffect(() => {
-    const syncNotFoundState = () => {
-      setIsNotFoundPage(Boolean(document.querySelector(NOT_FOUND_PAGE_MARKER)));
-    };
-
-    syncNotFoundState();
-
-    const observer = new MutationObserver(syncNotFoundState);
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['data-page-kind'],
-    });
-
-    return () => observer.disconnect();
-  }, [pathname]);
-
-  const hideHeader = isExcludedPath(strippedPathname, HEADER_EXCLUDED_PATHS);
-  const hideFooter = isExcludedPath(strippedPathname, FOOTER_EXCLUDED_PATHS) || isNotFoundPage;
+  const hideHeader = isExcludedPath(strippedPathname, HEADER_EXCLUDED_PATHS) || chrome.hideHeader;
+  const hideFooter = isExcludedPath(strippedPathname, FOOTER_EXCLUDED_PATHS) || chrome.hideFooter;
 
   return (
     <>
@@ -68,6 +48,14 @@ function ClientProvider({ children, modal }: ClientLayoutProviderProps) {
       {modal}
       {!hideFooter && <Footer pathname={pathname} />}
     </>
+  );
+}
+
+function ClientProvider({ children, modal }: ClientLayoutProviderProps) {
+  return (
+    <PageChromeProvider>
+      <ClientProviderContent modal={modal}>{children}</ClientProviderContent>
+    </PageChromeProvider>
   );
 }
 
