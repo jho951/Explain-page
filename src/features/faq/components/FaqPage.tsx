@@ -1,7 +1,5 @@
 import type { Locale } from '@/shared/types';
 
-import styles from './FaqPage.module.css';
-
 interface FaqPageProps {
   locale: Locale;
 }
@@ -77,18 +75,21 @@ export default function FaqPage({ locale }: FaqPageProps) {
   const copy = FAQ_COPY[locale];
 
   return (
-    <main className={styles.page}>
-      <section className={styles.hero}>
-        <p className={styles.eyebrow}>{copy.eyebrow}</p>
-        <h1 className={styles.title}>{copy.title}</h1>
-        <p className={styles.description}>{copy.description}</p>
+    <main className="layout-shell layout-stack">
+      <section className="surface-panel surface-panel--accent surface-panel--hero">
+        <p className="surface-eyebrow">{copy.eyebrow}</p>
+        <h1 className="surface-title surface-title--hero">{copy.title}</h1>
+        <p className="surface-copy">{copy.description}</p>
       </section>
 
-      <section className={styles.list} aria-label={copy.title}>
+      <section className="surface-card-grid" aria-label={copy.title}>
         {copy.items.map(item => (
-          <article key={item.question} className={styles.card}>
-            <h2 className={styles.question}>{item.question}</h2>
-            <p className={styles.answer}>{item.answer}</p>
+          <article
+            className="surface-panel surface-panel--accent surface-panel--card"
+            key={item.question}
+          >
+            <h2 className="surface-card-title">{item.question}</h2>
+            <p className="surface-card-copy">{item.answer}</p>
           </article>
         ))}
       </section>

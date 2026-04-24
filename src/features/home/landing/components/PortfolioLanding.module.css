@@ -1,12 +1,11 @@
 .page {
   min-height: 100%;
-  color: #141414;
+  color: var(--surface-title-color);
 }
 
 .main {
-  width: min(100%, 1160px);
-  margin: 0 auto;
-  padding: 54px 16px;
+  --layout-shell-pad-top: 5.4rem;
+  --layout-shell-pad-bottom: 5.4rem;
 }
 
 .hero {
@@ -15,81 +14,25 @@
   align-items: stretch;
 }
 
-.heroCopy,
-.summary {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid #d6dde2;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 22px 60px rgba(24, 35, 44, 0.12);
-}
-
 .heroCopy {
   display: flex;
   flex-direction: column;
   padding: 28px;
 }
 
-.heroCopy::before {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  height: 8px;
-  background: linear-gradient(90deg, #14b8a6 0%, #f59e0b 48%, #ef4444 100%);
-  content: '';
-}
-
-.eyebrow {
-  margin: 0 0 14px;
-  color: #0f766e;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0;
-  text-transform: uppercase;
-}
-
-.heroTitle,
-.summary h2 {
-  margin: 0;
-  color: #111111;
-  letter-spacing: 0;
-}
-
 .heroTitle {
   max-width: 13ch;
   font-size: 1.8rem;
   line-height: 1.04;
-  font-weight: 800;
 }
 
 .description {
   max-width: 58ch;
-  margin: 18px 0 0;
-  color: #4b5563;
-  font-size: 16px;
-  line-height: 1.7;
+  margin-top: 1.8rem;
 }
 
 .badgeList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 24px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.badgeList li {
-  border: 1px solid #dce2e6;
-  border-radius: 8px;
-  background: #f8fafc;
-  color: #3f4a54;
-  padding: 8px 10px;
-  font-size: 12px;
-  font-weight: 800;
-  line-height: 1;
+  margin-top: 2.4rem;
 }
 
 .actions {
@@ -145,29 +88,12 @@
   padding: 18px;
 }
 
-.summary::before {
-  position: absolute;
-  inset: 0;
-  border-top: 8px solid #111111;
-  pointer-events: none;
-  content: '';
-}
-
 .summaryHeader,
 .endpointHeader {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
-}
-
-.summaryHeader p,
-.endpointHeader p {
-  margin: 0 0 8px;
-  color: #0f766e;
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 0;
 }
 
 .summary h2 {
@@ -182,9 +108,7 @@
 
 .servicePanel,
 .endpointPanel {
-  border: 1px solid #dde3e8;
-  border-radius: 8px;
-  background: #fbfcfd;
+  background: var(--surface-subpanel-bg);
 }
 
 .servicePanel {
@@ -210,9 +134,9 @@
   grid-template-columns: auto minmax(0, 1fr);
   gap: 3px 8px;
   align-items: center;
-  border: 1px solid #e6ebef;
+  border: 1px solid var(--surface-subpanel-border);
   border-radius: 8px;
-  background: #ffffff;
+  background: var(--surface-subpanel-strong-bg);
   padding: 10px;
   line-height: 1.25;
 }
@@ -227,7 +151,7 @@
 
 .serviceList strong {
   overflow: hidden;
-  color: #23272f;
+  color: var(--surface-title-color);
   font-size: 12px;
   font-weight: 900;
   text-overflow: ellipsis;
@@ -236,7 +160,7 @@
 
 .serviceList em {
   grid-column: 2;
-  color: #66717c;
+  color: var(--surface-copy-color);
   font-size: 11px;
   font-style: normal;
   font-weight: 700;
@@ -260,7 +184,7 @@
 
 .repoGroupTitle {
   margin: 0;
-  color: #1f2933;
+  color: var(--surface-title-color);
   font-size: 1.2rem;
   font-weight: 800;
 }
@@ -269,8 +193,8 @@
   overflow-wrap: anywhere;
   border-left: 3px solid #14b8a6;
   border-radius: 0 8px 8px 0;
-  background: #ffffff;
-  color: #26313a;
+  background: var(--surface-subpanel-strong-bg);
+  color: var(--surface-title-color);
   padding: 9px 11px;
   font-family: var(--font-geist-mono, 'SFMono-Regular', Consolas, monospace);
   font-size: 12px;
@@ -297,7 +221,8 @@
 
 @media (min-width: 768px) {
   .main {
-    padding: 74px 24px;
+    --layout-shell-pad-top-lg: 7.4rem;
+    --layout-shell-pad-bottom-lg: 7.4rem;
   }
 
   .heroCopy {
@@ -311,6 +236,7 @@
 
 @media (min-width: 1024px) {
   .main {
-    padding: 94px 32px;
+    --layout-shell-pad-top-xl: 9.4rem;
+    --layout-shell-pad-bottom-xl: 9.4rem;
   }
 }

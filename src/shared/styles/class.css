@@ -29,6 +29,23 @@
   --font-2xl: 2.4rem;
   --font-3xl: 2.8rem;
   --font-title: 3.6rem;
+
+  --content-shell-max-narrow: 96rem;
+  --content-shell-max-wide: 116rem;
+  --content-shell-pad-inline: 1.6rem;
+  --content-shell-pad-top: 4rem;
+  --content-shell-pad-bottom: 7.2rem;
+  --content-shell-pad-inline-lg: 2.4rem;
+  --content-shell-pad-top-lg: 5.6rem;
+  --content-shell-pad-bottom-lg: 8rem;
+  --content-shell-pad-inline-xl: 3.2rem;
+
+  --surface-panel-radius: 0.8rem;
+  --surface-panel-hero-padding: 2.8rem 2rem;
+  --surface-panel-card-padding: 2rem 1.8rem 1.8rem;
+  --surface-panel-hero-padding-lg: 3.2rem 2.8rem;
+  --surface-panel-card-padding-lg: 2.2rem 2rem 2rem;
+  --surface-card-grid-gap: 1.4rem;
 }
 
 .sr-only {
@@ -41,4 +58,179 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+.layout-shell {
+  width: min(100%, var(--layout-shell-max, var(--content-shell-max-narrow)));
+  margin: 0 auto;
+  padding: var(--layout-shell-pad-top, var(--content-shell-pad-top))
+    var(--layout-shell-pad-inline, var(--content-shell-pad-inline))
+    var(--layout-shell-pad-bottom, var(--content-shell-pad-bottom));
+}
+
+.layout-shell--wide {
+  --layout-shell-max: var(--content-shell-max-wide);
+}
+
+.layout-stack {
+  display: grid;
+  gap: var(--layout-stack-gap, 2rem);
+}
+
+.surface-panel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--surface-panel-border);
+  border-radius: var(--surface-panel-radius);
+  background: var(--surface-panel-bg);
+  box-shadow: var(--surface-panel-shadow);
+}
+
+.surface-panel--accent::before,
+.surface-panel--ink::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  content: '';
+}
+
+.surface-panel--accent::before {
+  height: 0.5rem;
+  background: var(--surface-panel-accent);
+}
+
+.surface-panel--ink::before {
+  height: 0.8rem;
+  background: var(--surface-panel-ink);
+}
+
+.surface-panel--hero {
+  padding: var(--surface-panel-hero-padding);
+}
+
+.surface-panel--card {
+  padding: var(--surface-panel-card-padding);
+}
+
+.surface-subpanel {
+  border: 1px solid var(--surface-subpanel-border);
+  border-radius: 0.8rem;
+  background: var(--surface-subpanel-bg);
+}
+
+.surface-eyebrow {
+  margin: 0 0 1rem;
+  color: var(--surface-eyebrow-color);
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.surface-kicker {
+  margin: 0 0 0.8rem;
+  color: var(--surface-eyebrow-color);
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.surface-title {
+  margin: 0;
+  color: var(--surface-title-color);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.1;
+}
+
+.surface-title--hero {
+  font-size: 2.4rem;
+}
+
+.surface-copy {
+  margin: 1.4rem 0 0;
+  color: var(--surface-copy-color);
+  font-size: 1.5rem;
+  line-height: 1.7;
+}
+
+.surface-card-grid {
+  display: grid;
+  gap: var(--surface-card-grid-gap);
+}
+
+.surface-card-title {
+  margin: 0;
+  color: var(--surface-title-color);
+  font-size: 1.7rem;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.surface-card-copy {
+  margin: 1rem 0 0;
+  color: var(--surface-copy-muted-color);
+  font-size: 1.45rem;
+  line-height: 1.7;
+}
+
+.surface-pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin: 2.4rem 0 0;
+}
+
+.surface-pill {
+  border: 1px solid var(--surface-pill-border);
+  border-radius: 0.8rem;
+  background: var(--surface-pill-bg);
+  color: var(--surface-pill-color);
+  padding: 0.8rem 1rem;
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+@media (min-width: 768px) {
+  .layout-shell {
+    padding: var(--layout-shell-pad-top-lg, var(--content-shell-pad-top-lg))
+      var(--layout-shell-pad-inline-lg, var(--content-shell-pad-inline-lg))
+      var(--layout-shell-pad-bottom-lg, var(--content-shell-pad-bottom-lg));
+  }
+
+  .surface-panel--hero {
+    padding: var(--surface-panel-hero-padding-lg);
+  }
+
+  .surface-panel--card {
+    padding: var(--surface-panel-card-padding-lg);
+  }
+
+  .surface-title--hero {
+    font-size: 3rem;
+  }
+
+  .surface-card-grid--three-up {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .layout-shell {
+    padding: var(
+        --layout-shell-pad-top-xl,
+        var(--layout-shell-pad-top-lg, var(--content-shell-pad-top-lg))
+      )
+      var(
+        --layout-shell-pad-inline-xl,
+        var(--layout-shell-pad-inline-lg, var(--content-shell-pad-inline-lg))
+      )
+      var(
+        --layout-shell-pad-bottom-xl,
+        var(--layout-shell-pad-bottom-lg, var(--content-shell-pad-bottom-lg))
+      );
+  }
 }

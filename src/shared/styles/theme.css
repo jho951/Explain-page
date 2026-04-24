@@ -68,6 +68,25 @@
   --color-strong-surface-rgb: 39, 33, 29;
   --color-on-strong: #fffaf4;
   --color-on-strong-rgb: 255, 250, 244;
+
+  --surface-panel-border: #d6dde2;
+  --surface-panel-bg: rgba(255, 255, 255, 0.96);
+  --surface-panel-shadow: 0 2.2rem 6rem rgba(24, 35, 44, 0.12);
+  --surface-panel-accent: linear-gradient(90deg, #14b8a6 0%, #f59e0b 48%, #ef4444 100%);
+  --surface-panel-ink: #111111;
+
+  --surface-eyebrow-color: #0f766e;
+  --surface-title-color: #111111;
+  --surface-copy-color: #4b5563;
+  --surface-copy-muted-color: #5b6570;
+
+  --surface-pill-border: #dce2e6;
+  --surface-pill-bg: #f8fafc;
+  --surface-pill-color: #3f4a54;
+
+  --surface-subpanel-border: #dde3e8;
+  --surface-subpanel-bg: #fbfcfd;
+  --surface-subpanel-strong-bg: #ffffff;
 }
 
 html.dark {
@@ -129,4 +148,23 @@ html.dark {
   --color-strong-surface-rgb: 31, 39, 51;
   --color-on-strong: #f6f9ff;
   --color-on-strong-rgb: 246, 249, 255;
+
+  --surface-panel-border: rgba(255, 255, 255, 0.14);
+  --surface-panel-bg: rgba(31, 39, 51, 0.92);
+  --surface-panel-shadow: 0 2.2rem 6rem rgba(4, 8, 14, 0.38);
+  --surface-panel-accent: linear-gradient(90deg, #34d399 0%, #fbbf24 50%, #fb7185 100%);
+  --surface-panel-ink: #f6f9ff;
+
+  --surface-eyebrow-color: #8ddbcc;
+  --surface-title-color: #f6f9ff;
+  --surface-copy-color: #ccd6e2;
+  --surface-copy-muted-color: #b7c3d1;
+
+  --surface-pill-border: rgba(255, 255, 255, 0.12);
+  --surface-pill-bg: rgba(255, 255, 255, 0.06);
+  --surface-pill-color: #dbe6f2;
+
+  --surface-subpanel-border: rgba(255, 255, 255, 0.1);
+  --surface-subpanel-bg: rgba(255, 255, 255, 0.04);
+  --surface-subpanel-strong-bg: rgba(255, 255, 255, 0.07);
 }

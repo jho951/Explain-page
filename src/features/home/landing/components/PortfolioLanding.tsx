@@ -114,17 +114,19 @@ export default function PortfolioLanding({ locale }: PortfolioLandingProps) {
 
   return (
     <div className={styles.page}>
-      <main className={styles.main}>
+      <main className={`layout-shell layout-shell--wide ${styles.main}`}>
         <section className={styles.hero} aria-labelledby="home-title">
-          <div className={styles.heroCopy}>
-            <p className={styles.eyebrow}>{copy.eyebrow}</p>
-            <p id="home-title" className={styles.heroTitle}>
+          <div className={`surface-panel surface-panel--accent ${styles.heroCopy}`}>
+            <p className="surface-eyebrow">{copy.eyebrow}</p>
+            <p id="home-title" className={`surface-title ${styles.heroTitle}`}>
               {copy.title}
             </p>
-            <p className={styles.description}>{copy.desc}</p>
-            <ul className={styles.badgeList}>
+            <p className={`surface-copy ${styles.description}`}>{copy.desc}</p>
+            <ul className={`surface-pill-list ${styles.badgeList}`}>
               {copy.badges.map(badge => (
-                <li key={badge}>{badge}</li>
+                <li className="surface-pill" key={badge}>
+                  {badge}
+                </li>
               ))}
             </ul>
             <div className={styles.actions}>
@@ -136,11 +138,14 @@ export default function PortfolioLanding({ locale }: PortfolioLandingProps) {
             </div>
           </div>
 
-          <div className={styles.summary} aria-label={copy.serviceTitle}>
+          <div
+            className={`surface-panel surface-panel--ink ${styles.summary}`}
+            aria-label={copy.serviceTitle}
+          >
             <div className={styles.summaryHeader}>
               <div>
-                <p>{copy.serviceKicker}</p>
-                <h2>{copy.serviceTitle}</h2>
+                <p className="surface-kicker">{copy.serviceKicker}</p>
+                <h2 className="surface-title">{copy.serviceTitle}</h2>
               </div>
               <Image
                 src="/icons/window.svg"
@@ -151,7 +156,7 @@ export default function PortfolioLanding({ locale }: PortfolioLandingProps) {
               />
             </div>
 
-            <div className={styles.servicePanel}>
+            <div className={`surface-subpanel ${styles.servicePanel}`}>
               <ul className={styles.serviceList}>
                 {copy.services.map(service => (
                   <li key={service.name}>
@@ -163,11 +168,11 @@ export default function PortfolioLanding({ locale }: PortfolioLandingProps) {
               </ul>
             </div>
 
-            <div className={styles.endpointPanel}>
+            <div className={`surface-subpanel ${styles.endpointPanel}`}>
               <div className={styles.endpointHeader}>
                 <div>
-                  <p>{copy.repoKicker}</p>
-                  <h2>{copy.repoTitle}</h2>
+                  <p className="surface-kicker">{copy.repoKicker}</p>
+                  <h2 className="surface-title">{copy.repoTitle}</h2>
                 </div>
                 <Image
                   src="/icons/sync.svg"

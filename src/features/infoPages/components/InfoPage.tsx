@@ -2,8 +2,6 @@ import { notFound } from 'next/navigation';
 
 import type { Locale } from '@/shared/types';
 
-import styles from './InfoPage.module.css';
-
 type InfoPageKey = 'service' | 'brand';
 
 interface InfoPageProps {
@@ -117,18 +115,21 @@ export default function InfoPage({ locale, pageKey }: InfoPageProps) {
   }
 
   return (
-    <main className={styles.page}>
-      <section className={styles.hero}>
-        <p className={styles.eyebrow}>{copy.eyebrow}</p>
-        <h1 className={styles.title}>{copy.title}</h1>
-        <p className={styles.description}>{copy.description}</p>
+    <main className="layout-shell layout-stack">
+      <section className="surface-panel surface-panel--accent surface-panel--hero">
+        <p className="surface-eyebrow">{copy.eyebrow}</p>
+        <h1 className="surface-title surface-title--hero">{copy.title}</h1>
+        <p className="surface-copy">{copy.description}</p>
       </section>
 
-      <section className={styles.grid} aria-label={copy.title}>
+      <section className="surface-card-grid surface-card-grid--three-up" aria-label={copy.title}>
         {copy.sections.map(section => (
-          <article key={section.title} className={styles.card}>
-            <h2 className={styles.cardTitle}>{section.title}</h2>
-            <p className={styles.cardBody}>{section.body}</p>
+          <article
+            key={section.title}
+            className="surface-panel surface-panel--accent surface-panel--card"
+          >
+            <h2 className="surface-card-title">{section.title}</h2>
+            <p className="surface-card-copy">{section.body}</p>
           </article>
         ))}
       </section>
